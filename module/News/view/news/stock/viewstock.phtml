@@ -1,0 +1,64 @@
+<script>
+$(document).ready(function(){
+		$.get('http://ajax.vietstock.vn/GetChart.ashx'
+				,function(data){
+					console.log(data);
+					}
+				);
+	}
+);
+</script>
+<table class="table">
+	<thead>
+		<tr>
+			<th class="" rowspan="2">Mã CK</th>
+			<th class="" rowspan="2">Trần</th>
+			<th class="" rowspan="2">Sàn</th>
+			<th class="" rowspan="2">TC</th>
+			<th class="" colspan="6">Dư mua</th>
+			<th class="" rowspan="2">Giá<br>khớp
+			</th>
+			<th class="" rowspan="2">KL<br>khớp
+			</th>
+			<th class="" rowspan="2">+/-</th>
+			<th class="" colspan="6">Dư bán</th>
+			<th class="" rowspan="2">Tổng<br>KL
+			</th>
+			<th class="" rowspan="2" style="display: none">Trung<br>bình
+			</th>
+			<th class="" rowspan="2">Mở<br>cửa
+			</th>
+			<th class="" rowspan="2">Cao<br>nhất
+			</th>
+			<th class="" rowspan="2">Thấp<br>nhất
+			</th>
+			<th class="" rowspan="2">NN<br>mua
+			</th>
+			<th class="" rowspan="2" style="display: none">NN<br>bán
+			</th>
+		</tr>
+		<tr>
+			<th class="">Giá 3</th>
+			<th class="">KL 3</th>
+			<th class="">Giá 2</th>
+			<th class="">KL 2</th>
+			<th class="">Giá 1</th>
+			<th class="">KL 1</th>
+			<th class="">Giá 1</th>
+			<th class="">KL 1</th>
+			<th class="">Giá 2</th>
+			<th class="">KL 2</th>
+			<th class="">Giá 3</th>
+			<th class="">KL3</th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<?php foreach ($stock_info as $stock):?>
+		 
+			<td><?php echo $stock?></td>		
+		
+		<?php endforeach;?>
+		</tr>
+	</tbody>
+</table>

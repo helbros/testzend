@@ -1,0 +1,18 @@
+<h3>This is adduser page</h3>
+<p>
+	<a href="<?php echo $this->url('news', array('action'=>'add'));?>">Add new album</a>
+</p>
+<p>
+	<a href="<?php echo $this->url('news',array('action'=>'edit', 'id' => '2'));?>">Edit</a>
+</p>
+<p> <a href="<?php echo $this->url('news', array('action'=>'delete', 'id' => '2'));?>">Delete</a>
+</p>
+<?php
+echo $this->form ()->openTag ( $this->form );
+echo $this->formRow ( $this->form->get ( 'username' ) );
+echo $this->formRow ( $this->form->get ( 'password' ) );
+echo $this->formElement ( $this->form->get ( 'submit' ) );
+echo $this->form ()->closeTag ( $this->form );
+echo "<br>";
+
+?>

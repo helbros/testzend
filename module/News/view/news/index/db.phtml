@@ -1,0 +1,31 @@
+<h3>This is db page</h3>
+<?php
+echo $this->form()->openTag($this->form);
+echo $this->formRow($this->form->get('username'));
+echo $this->formRow($this->form->get('password'));
+echo $this->formElement($this->form->get('submit'));
+echo $this->form()->closeTag($this->form);
+echo "<br>";
+
+echo print_r($result);
+echo "<br>";
+?>
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>Password</th>
+    <th>Salt</th>
+    <th>Mail</th>
+  </tr>
+  <?php foreach ($result as $val){ ?>
+  <tr>
+  	<td><?=$val['id'] ?></td>
+  	<td><?=$val['username'] ?></td>
+  	<td><?=$val['pass'] ?></td>
+  	<td><?=$val['salt'] ?></td>
+  	<td><?=$val['email'] ?></td>    
+  </tr>
+  <?php }?>
+</table>
+

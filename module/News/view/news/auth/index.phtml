@@ -1,0 +1,8 @@
+<h3>This is main page AUTH</h3>
+<?php if ($this->user!=null) {
+	echo 'WELCOME : '.$this->user;
+	
+}else {
+	echo "<a href=".$this->url('news/auth/login').">Login</a>";
+}?>
+

@@ -1,0 +1,102 @@
+<script>
+$(document).ready(function(){			
+		$.post('http://www.cophieu68.vn/index_ajax.php'
+   			 ,{   				
+   				marketType:1,
+   				orderType:'volume'
+   			},function(data){
+   				 console.log(data);
+   			 });
+	
+	 $(document).on('click', ".jcarousel-prev", function () {
+		 	$('.jcarousel').jcarousel();
+	        $('.jcarousel').jcarousel('scroll', '-=4');	     
+	 });
+	 $(document).on('click', ".jcarousel-next", function () {
+		 	$('.jcarousel').jcarousel();		    
+	        $('.jcarousel').jcarousel('scroll', '+=4');	        
+	 });	
+	 
+	var ul='<div><div class="jcarousel"><ul class="list-unstyled list-stock-box">';		
+	$.get('http://ajax.vietstock.vn/GetChart.ashx'
+			,function(data){
+					var li='';					
+					for(var x=0;x<=28;x++){
+						if(data[x].Color=='#39ca32'){
+						li+="<li><h5><strong>"+data[x].Symbol+"</strong></h5><h6>"+data[x].CurrentPrice+"</h6><span class='stock-price-up'>+"+data[x].Change+"</span><p class='stock-price-up'>("+data[x].PercentChange+"%)</p></li>";
+						}else{
+							li+="<li><h5><strong>"+data[x].Symbol+"</strong></h5><h6>"+data[x].CurrentPrice+"</h6><span class='stock-price-down'>"+data[x].Change+"</span><p class='stock-price-down'>("+data[x].PercentChange+"%)</p></li>";
+						}						
+					}
+					ul=ul+li+'</ul></div><span class="glyphicon glyphicon-chevron-left jcarousel-prev"></span><span class="glyphicon glyphicon-chevron-right jcarousel-next"></span></div>';					
+					$('.row-list-stock-box').append(ul);
+				}
+			);	
+	}
+);
+</script>
+<div class="row">
+	<div class="col-md-8">
+		<?php echo $chatbox;?>
+	</div>
+	<div class="col-md-4">
+		<div class="row row-list-stock-box">
+			<!-- <ul class="list-unstyled list-stock-box">
+			 <li>
+			 <h4>VNIndex</h4>
+			 <h5>574.52</h5>
+			 <span>0.97</span>
+			 <p>(0.17%)</p>
+			 </li>
+			  <li>
+			 <h4>HastcIndex</h4>
+			 <h5>83.40</h5>
+			 <span>0.08</span>
+			 <p>(0.09%)</p>
+			 </li> <li>
+			 <h4>VS100</h4>
+			 <h5>129.47</h5>
+			 <span>1.30</span>
+			 <p>(1.01%)</p>
+			 </li> <li>
+			 <h4>LargeCap</h4>
+			 <h5>211.87</h5>
+			 <span>1.77</span>
+			 <p>(0.84%)</p>
+			 </li>
+			</ul>	 -->
+		</div>
+		<div class="row">
+			<?php echo $view_stock?>
+		</div>
+	</div>
+</div>
+<div class="row view-stock-panel"></div>
+<div class="row">
+	<div class="col-md-12">
+		<h3>Tin tức</h3>
+		<ul class="list-unstyled list-article ul-custom">
+	<?php foreach ($this->paginator as $art):?>
+		<a href="#">
+				<li>
+					<p class="thumb">Thumbs</p>
+					<p class="title"><?=$art->title?></p>
+					<p class="review"><?=$art->intro_text?></p>
+					<p class="rate">Like</p>
+			</li>
+			</a>
+		<?php endforeach;?>		
+	</ul>
+	</div>
+	<div class="row"><?php
+	
+	echo $this->paginationControl ( $this->paginator, 'sliding', array (
+			'partial/paginator.phtml',
+			'News' 
+	), array (
+			'route' => 'news/manager/paginator' 
+	) )?>
+	</div>
+</div>
+
+

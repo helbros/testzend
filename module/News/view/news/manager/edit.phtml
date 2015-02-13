@@ -1,0 +1,22 @@
+<h3>Manager page : edit action</h3>
+<?php
+$form=$this->form;
+ $form->setAttribute('action', $this->url(
+     'news/manager',
+     array(
+         'action' => 'edit',
+         'id'     => $this->id,
+     )
+ ));
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('username')).'<br>';
+echo $this->formRow($form->get('password')).'<br>';
+echo $this->formRow($form->get('confirm_password')).'<br>';
+echo $this->formRow($form->get('email')).'<br>';
+echo $this->formRow($form->get('submit')).'<br>';
+echo $this->formRow($form->get('csrf')).'<br>';
+echo $this->form()->closeTag($form);
+//echo print_r($data);
+?>

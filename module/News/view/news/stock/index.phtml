@@ -1,0 +1,167 @@
+<script>
+$(document).ready(function(){	
+	var count_click=0;
+	$('.stock-most-down').hide();
+	$('.stock-most-match').hide();
+	$('.prv-table').hide();
+
+	
+	$('.next-table').click(function(){
+		count_click++;
+		//console.log(count_click);		
+			$('.stock-mini-block li').each(function(key,val){					
+					if(key==count_click) {
+						$(val).show();
+						//console.log(key+'-'+$(val).attr('class'));
+					}else{
+						$(val).hide();
+					}
+									
+				}			
+			);
+				
+			if(count_click==0) {
+				$('.prv-table').hide();
+			}else {
+				$('.prv-table').show();
+			}
+			
+			if(count_click==2) {
+				$('.next-table').hide();				
+			}else{
+				$('.next-table').show();
+			} 
+			if(count_click>=2) {count_click=-1};
+		}
+	);
+	
+	$('.prv-table').click(function(){					
+		if(count_click<=-1) {count_click=2};
+		count_click--;
+		console.log(count_click);		
+			$('.stock-mini-block li').each(function(key,val){					
+					if(key==count_click) {
+						$(val).show();
+						console.log(key+'-'+$(val).attr('class'));
+					}else{
+						$(val).hide();
+					}
+									
+				}			
+			);
+			if(count_click==0) {
+				$('.prv-table').hide();
+			}else {
+				$('.prv-table').show();
+			}
+			
+			if(count_click==2) {
+				$('.next-table').hide();				
+			}else{
+				$('.next-table').show();
+			} 	
+		}
+	);
+});
+</script>
+
+
+
+<ul class="list-unstyled stock-mini-block">
+	<li class="stock-most-increase">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<td colspan="7" class="text-center bold"><span class="glyphicon glyphicon-chevron-left prv-table pull-left"></span><strong>Cổ phiếu tăng giá
+							nhiều nhất</strong><span class="glyphicon glyphicon-chevron-right next-table pull-right"></span></td>
+				</tr>
+				<tr>
+					<th>Mã</th>
+					<th>Mở</th>
+					<th>Đóng</th>
+					<th>Cao</th>
+					<th>Thấp</th>
+					<th>KL</th>
+					<th>Thay đổi</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($stock_most_increase as $stock):?>
+			<tr>
+					<td><strong><a><?php echo $stock->sCode ?></a></strong></td>
+					<td><?php echo $stock->sOpen ?></td>
+					<td><?php echo $stock->sClose ?></td>
+					<td><?php echo $stock->sHighest ?></td>
+					<td><?php echo $stock->sLowest ?></td>
+					<td><?php echo $stock->sTotalShares ?></td>
+					<td><?php echo $stock->sChangePercent ?></td>
+				</tr>
+			<?php endforeach;?>
+			</tbody>
+		</table>
+	</li>
+	<li class="stock-most-down">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<td colspan="7" class="text-center bold"><span class="glyphicon glyphicon-chevron-left prv-table pull-left"></span><strong>Cổ phiếu giảm giá
+							nhiều nhất</strong><span class="glyphicon glyphicon-chevron-right next-table pull-right"></span></td>
+				</tr>
+				<tr>
+					<th>Mã</th>
+					<th>Mở</th>
+					<th>Đóng</th>
+					<th>Cao</th>
+					<th>Thấp</th>
+					<th>KL</th>
+					<th>Thay đổi</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($stock_most_down as $stock):?>
+			<tr>
+					<td><strong><a><?php echo $stock->sCode ?></a></strong></td>
+					<td><?php echo $stock->sOpen ?></td>
+					<td><?php echo $stock->sClose ?></td>
+					<td><?php echo $stock->sHighest ?></td>
+					<td><?php echo $stock->sLowest ?></td>
+					<td><?php echo $stock->sTotalShares ?></td>
+					<td><?php echo $stock->sChangePercent ?></td>
+				</tr>
+			<?php endforeach;?>
+			</tbody>
+		</table>
+	</li>
+	<li class="stock-most-match table-bordered">
+		<table class="table">
+			<thead>
+				<tr>
+					<td colspan="7" class="text-center bold"><span class="glyphicon glyphicon-chevron-left prv-table pull-left"></span><strong>Cổ phiếu khớp lệnh
+							nhiều nhất</strong><span class="glyphicon glyphicon-chevron-right next-table pull-right"></span></td>
+				</tr>
+				<tr>
+					<th>Mã</th>
+					<th>Mở</th>
+					<th>Đóng</th>
+					<th>Cao</th>
+					<th>Thấp</th>
+					<th>KL</th>
+					<th>Thay đổi</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($stock_most_match as $stock):?>
+			<tr>
+					<td><strong><a><?php echo $stock->sCode ?></a></strong></td>
+					<td><?php echo $stock->sOpen ?></td>
+					<td><?php echo $stock->sClose ?></td>
+					<td><?php echo $stock->sHighest ?></td>
+					<td><?php echo $stock->sLowest ?></td>
+					<td><?php echo $stock->sTotalShares ?></td>
+					<td><?php echo $stock->sChangePercent ?></td>
+				</tr>
+			<?php endforeach;?>
+			</tbody>
+		</table>
+	</li>
+</ul>

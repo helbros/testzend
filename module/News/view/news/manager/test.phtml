@@ -1,0 +1,41 @@
+<h3>This is test action </h3>
+<?php
+$form=$this->form;
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('captcha')).'<br>';
+echo $this->formRow($form->get('submit')).'<br>';
+echo $this->form()->closeTag($form);
+//echo print_r($data);
+
+?>
+<h3>TEST PAGINATOR</h3>
+<a class="btn btn-default" href="<?php echo $this->url('manager',array('action'=>'adduser')); ?>">Add</a>
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>Password</th>    
+    <th>Mail</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <?php foreach ($paginator as $val){ ?>
+  <tr>
+  	<td><?=$val->id ?></td>
+  	<td><?=$val->username ?></td>
+  	<td><?=$val->password ?></td>
+  	<td><?=$val->email ?></td>    
+  	
+  	<td><a href="<?php echo $this->url('manager',array('action'=>'edit','id'=>$val->id)); ?>">Edit</a></td>
+  	<td><a href="<?php echo $this->url('manager',array('action'=>'delete','id'=>$val->id));  ?>">Delete</a></td>
+  </tr>
+  <?php }?>
+  <tfoot>
+  <tr>
+  	<td colspan="6"><?php
+  		echo $this->paginationControl($this->paginator,'Sliding',array('partial/paginator.phtml','News'),array('route'=>'manager'));
+  	?></td>
+  </tr>
+  </tfoot>
+</table>
