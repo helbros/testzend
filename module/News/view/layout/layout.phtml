@@ -6,7 +6,7 @@
 <?php echo $this->headTitle(); ?>
 
 <?php echo $this->headLink()->prependStylesheet($this->basePath()."/css/bootstrap.css")
-							->prependStylesheet($this->basePath() . '/css/style.css');?>
+							->appendStylesheet($this->basePath() . '/css/style.css');?>
 <!-- Scripts -->
         <?php echo $this->headScript()
             ->prependFile($this->basePath() . '/js/bootstrap.min.js')

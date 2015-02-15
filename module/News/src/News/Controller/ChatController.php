@@ -16,7 +16,8 @@ class ChatController extends AbstractActionController {
 		$auth=new AuthenticationService();
 		$this->auth=$auth->getIdentity();
 	}
-	public function indexAction() {				
+	public function indexAction() {	
+		//return array('a'=>'a');			
 	}
 	public function postchatAction(){
 		$request=$this->getRequest();

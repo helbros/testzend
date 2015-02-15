@@ -17,29 +17,70 @@ use Facebook\FacebookRequest;
 use Facebook\GraphUser;
 use Facebook\FacebookRequestException;
 use Zend\Session\Container;
+use News\Model\User;
 
 
 class AuthController extends AbstractActionController {	
+	protected $userTable; 
 	function __construct(){
 		FacebookSession::setDefaultApplication('684652011592771','42aeb9182578e6d3416dd90818201106');
 		$container=new Container('fb');
 	}
-	function loginfbAction(){
-		
-		$helper= new FacebookRedirectLoginHelper('http://localhost/workspace/testzend/public/news/auth/getdatafb');
-		$link=$helper->getLoginUrl();
-		return array('link'=>$link);
+	function getUserTable(){
+		return $this->userTable=$this->getServiceLocator()->get('News\Model\UserTable');
 	}
-	function getdatafbAction(){
-		$helper=new FacebookRedirectLoginHelper('http://localhost/workspace/testzend/public/news/auth/getdatafb');
+	
+	function loginfbAction(){			
+		
+		/* echo $this->getRequest()->getUri()->getHost();
+		echo '<br>';
+		$helper=$this->getServiceLocator()->get('ViewHelperManager')->get('ServerUrl');
+		echo $helper->__invoke(); */
+		$helper=new FacebookRedirectLoginHelper('http://homestock.vn/testzend/public/news/auth/getdatafb');
 		$session=$helper->getSessionFromRedirect();
 		if ($session) {
 			$user=(new FacebookRequest($session, 'GET', '/me'))->execute()->getGraphObject(GraphUser::className());
-			echo 'Name = '.$user->getName();
+			//echo 'Name = '.$user->getName();			
 		}
+		$userx=new User();
+		
+		$userx->username = '100004863904987';
+		$userx->password = '100004863904987';
+		$userx->birthday = '07/19/1988';
+		$userx->email = 'tiqui2taca@gmail.com';	
+		$userx->first_name = 'Thanh Tuan';
+		$userx->gender = 'male';
+		$userx->last_name ='Nguyen';
+		$userx->link = 'http://www.facebook.com/100004863904987';
+		$userx->locale = 'vi_VN';
+		$userx->name = 'Thanh Tuan Nguyen';
+		$userx->timezone = 7;
+		$userx->updated_time = '2014-10-02T03:28:53+0000';
+		$userx->verified =1;
+		
+		$validator_user=new RecordExists(array(
+				'table'=>'userz',
+				'field'=>'username',
+				'adapter'=>$this->getServiceLocator()->get('Zend\Db\Adapter\Adapter')
+		));
+		if ($validator_user->isValid($userx->username)) {
+			$this->redirect()->toRoute('news/manager/home');			
+		}else {			
+			$this->getUserTable()->insertUser($userx); 
+			$this->redirect()->toRoute('news/manager/home');
+		}
+		
+		
+		
+	}
+	function registerAction(){
 		
 	}
 	function loginAction() {
+		//create link login fb
+		$helper= new FacebookRedirectLoginHelper('http://homestock.vn/testzend/public/news/auth/loginfb');
+		$link_login_fb=$helper->getLoginUrl();
+		
 		$auth = new AuthenticationService ();
 		$messAuth = null;
 		$form = new RegisterForm ();
@@ -77,7 +118,8 @@ class AuthController extends AbstractActionController {
 		
 		return array (
 				'form' => $form,
-				'messages' => $messAuth 
+				'messages' => $messAuth,
+				'link_login_fb'=>$link_login_fb 
 		);
 	}
 	function logoutAction() {

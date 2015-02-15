@@ -67,7 +67,16 @@ return array (
 																				'action' => 'home' 
 																		) 
 																) 
-														),														
+														),	
+														'home' => array (
+																'type' => 'Literal',
+																'options' => array (
+																		'route' => '/home',
+																		'defaults' => array (
+																				'action' => 'home'
+																		)
+																)
+														),
 												) 
 										)
 										,
@@ -122,16 +131,7 @@ return array (
 														) 
 												),
 												'may_terminate' => true,
-												'child_routes' => array (
-														'index' => array (
-																'type' => 'Literal',
-																'options' => array (
-																		'route' => '/index',
-																		'defaults' => array (
-																				'action' => 'index' 
-																		) 
-																) 
-														),
+												'child_routes' => array (													
 														'postchat' => array (
 																'type' => 'Literal',
 																'options' => array (
@@ -222,19 +222,19 @@ return array (
 						// config of another page
 						'phantich' => array (
 								'label' => 'PHÂN TÍCH',
-								'route' => 'news/chat/index'
+								'route' => 'news'
 						),
 						'nhandinh' => array (
 								'label' => 'NHẬN ĐỊNH',
-								'route' => 'news/chat/index'
+								'route' => 'news'
 						),
 						'kinhnghiem' => array (
 								'label' => 'KINH NGHIỆM',
-								'route' => 'news/chat/index'
+								'route' => 'news'
 						),
 						'aboutus' => array (
 								'label' => 'ABOUT US',
-								'route' => 'news/chat/index'
+								'route' => 'news'
 						),						
 						// 'module'=>'news',
 						
@@ -279,10 +279,12 @@ return array (
 						'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
 						'news/index/index' => __DIR__ . '/../view/news/index/index.phtml',
 						'error/404' => __DIR__ . '/../view/error/404.phtml',
-						'error/index' => __DIR__ . '/../view/error/index.phtml' 
+						'error/index' => __DIR__ . '/../view/error/index.phtml',
+						'view_chat'=>__DIR__ . '/../view/news/chat/index.phtml',
+						'view_stock'=>__DIR__ . '/../view/news/stock/index.phtml',
 				),
 				'template_path_stack' => array (
-						__DIR__ . '/../view' 
+						'news' => __DIR__ . '/../view',
 				),
 				'strategies' => array (
 						'ViewJsonStrategy' 

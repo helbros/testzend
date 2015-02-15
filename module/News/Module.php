@@ -28,6 +28,7 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
+    	define('BASE_URL', 'qweqwe');
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener ();
 		$moduleRouteListener->attach ( $eventManager );
