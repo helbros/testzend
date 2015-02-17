@@ -18,6 +18,9 @@ use Facebook\GraphUser;
 use Facebook\FacebookRequestException;
 use Zend\Session\Container;
 use News\Model\User;
+use Zend\View\Model\ViewModel;
+use Zend\Session\Config\StandardConfig;
+use Zend\Session\SessionManager;
 
 
 class AuthController extends AbstractActionController {	
@@ -74,9 +77,30 @@ class AuthController extends AbstractActionController {
 		
 	}
 	function registerAction(){
-		
+		$request=$this->getRequest();
+		$form=new RegisterForm();
+		$filter=new RegisterFilter($this->getServiceLocator()->get('Zend\Db\Adapter\Adapter'));
+		if ($request->isPost()) {
+			$form->setValidationGroup('username','password','confirm_password','email','captcha');
+			$form->setInputFilter($filter);
+			$form->setData($request->getPost());
+			if ($form->isValid()) {
+				echo 'valid';
+				echo print_r($form->getData());
+				$user=new User();
+				$this->getUserTable()->insertUser($user->exchangeArray($form->getData()));
+			}else echo print_r ( $form->getMessages () );
+		}
+		return array('form'=>$form);
+	}
+	function testAction(){
+		$container=new Container('helbros');
+		$container->getManager()->destroy();
+		return array('show'=>'tetete');
 	}
 	function loginAction() {
+		$container=new Container('helbros');
+		echo $container->test;
 		//create link login fb
 		$helper= new FacebookRedirectLoginHelper('http://homestock.vn/testzend/public/news/auth/loginfb');
 		$link_login_fb=$helper->getLoginUrl();
@@ -127,9 +151,7 @@ class AuthController extends AbstractActionController {
 		$auth->clearIdentity ();				
 		$this->redirect ()->toRoute ( 'news/manager' );
 	}
-	function testAction(){
-		return array('show'=>'tetete');
-	}
+	
 	function checkAuthAction(){
 		$auth = new AuthenticationService ();
 		$validator_band=new RecordExists(array(
