@@ -3,8 +3,9 @@ namespace News\Model;
 class User {
 	public $id;
 	public $username;
-	public $password;
+	public $password;	
 	public $email;
+	public $title_user;
 	function exchangeArray($data) {
 		$this->id=(!empty($data['id'])?$data['id']:null);
 		$this->username=(!empty($data['username'])?$data['username']:null);

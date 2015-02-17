@@ -35,8 +35,10 @@ class UserTable  {
 		$data=array(
 				'username'=>$data->username,
 				'password'=>$data->password,
-				'email'=>$data->email
-		);
+				'email'=>$data->email,
+				'title_user'=>'member',
+				'salt'=>uniqid(mt_rand(), true)
+		);		
 		$this->tableGateway->insert($data);
 	}
 	function saveUser(User $user){

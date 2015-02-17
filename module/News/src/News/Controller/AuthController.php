@@ -88,7 +88,8 @@ class AuthController extends AbstractActionController {
 				echo 'valid';
 				echo print_r($form->getData());
 				$user=new User();
-				$this->getUserTable()->insertUser($user->exchangeArray($form->getData()));
+				$user->exchangeArray($form->getData());
+				$this->getUserTable()->insertUser($user);
 			}else echo print_r ( $form->getMessages () );
 		}
 		return array('form'=>$form);
