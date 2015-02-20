@@ -123,7 +123,11 @@ top: 0px !important;
 }
 
 
-
+/*----------------LOGIN MODAL FORM----------*/
+.modal-edit{
+	width: 400px !important;
+	margin-top: 200px !important;
+}
 
 
 

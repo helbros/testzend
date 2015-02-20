@@ -109,15 +109,15 @@ return array (
 																		) 
 																) 
 														),
-													/* 	'getdatafb' => array (
+														'register' => array (
 																'type' => 'Literal',
 																'options' => array (
-																		'route' => '/getdatafb',																		
+																		'route' => '/register',																		
 																		'defaults' => array (
-																				'action' => 'getdatafb' 
+																				'action' => 'register' 
 																		) 
 																) 
-														) */
+														)
 												) 
 										)
 										,
@@ -238,13 +238,7 @@ return array (
 						),						
 						// 'module'=>'news',
 						
-						
-						'manager' => array (
-								'label' => 'QUẢN LÝ',
-								'route' => 'news/manager',
-								'controller' => 'manager',
-								'action' => 'index' 
-						)
+											
 						 
 				)
 				 

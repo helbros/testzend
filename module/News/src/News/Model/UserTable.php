@@ -5,6 +5,7 @@ use Zend\Db\Sql\Select;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
+use Zend\Crypt\Password\Bcrypt;
 class UserTable  {
 	protected $tableGateway;
 	function __construct(TableGateway $tableGateway) {
@@ -27,19 +28,38 @@ class UserTable  {
 		$resulSet=$this->tableGateway->select();
 		return $resulSet;
 	}
-	function getUser($id){
-		$rowset=$this->tableGateway->select(array('id'=>$id));
+	
+	/**
+	 * 
+	 * 
+	 * @param $param (id or username of user)
+	 * @param string $flag (if $flag=false will select by ID, if $flag=false will select by username)  
+	 * @return Ambigous <multitype:, ArrayObject, NULL>
+	 */
+	function getUser($param,$flag=FALSE){
+		$rowset=$flag==FALSE? $this->tableGateway->select(array('id'=>$param)):$this->tableGateway->select(array('username'=>$param));
 		return $rowset->current();
 	}
 	function insertUser(User $data){
+		$bcrypt=new Bcrypt();
+		$bcrypt->setSalt($this->createSalt());
 		$data=array(
 				'username'=>$data->username,
-				'password'=>$data->password,
+				'password'=>$bcrypt->create($data->password),
+				'salt'=>$bcrypt->getSalt(),
 				'email'=>$data->email,
-				'title_user'=>'member',
-				'salt'=>uniqid(mt_rand(), true)
+				'title_user'=>'member',				
 		);		
 		$this->tableGateway->insert($data);
+	}
+	function createSalt($len = 16){
+		$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`~!@#$%^&*()-=_+';
+		$l = strlen($chars) - 1;
+		$str = '';
+		for ($i = 0; $i <=$len; $i++) {
+			$str .= $chars[rand(0, $l)];
+		}
+		return $str;
 	}
 	function saveUser(User $user){
 		$data=array(

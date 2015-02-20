@@ -123,6 +123,7 @@ class ManagerController extends AbstractActionController {
 		$form = new RegisterForm ();
 		echo print_r ( $current_user );
 		$form->bind ( $current_user );
+		
 		$form->get ( 'submit' )->setAttribute ( 'value', 'Save' );
 		$filter = new RegisterFilter ( $this->getDbAdapter () );
 		

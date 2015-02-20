@@ -24,9 +24,14 @@
 					<a class="navbar-brand" href="#"> <img class="img-responsive" alt="Brand" src="<?php //echo $this->basePath('img/mini-hs.jpg')?>">
 					</a>
 				</div>
+				<ul class="list-unstyled nav navbar-nav pull-right main-menu">
+					<li class="login"><a href="">Đăng nhập</a></li>
+				</ul>
 				<?php
 				echo $this->navigation ( 'navigation' )->menu ()->setUlClass ( 'nav navbar-nav test pull-right main-menu' );
-				?>			
+				?>
+					
+						
 			</div>
 		</nav>
 		
@@ -65,7 +70,60 @@
 		</div>
 	</div>
 </div>
-<?php //echo $this->view_chat_x;?>
+<!-- Modal -->
+<script>
+$(document).on('click','#login-pop-up-frontend',function(){
+	$.post(base_url+'/news/auth/loginajax',
+			{
+				username:$('input[name="username"]').val(),
+				password:$('input[name="password"]').val()
+			},
+			function(data){	
+				console.log(data.logined_frontend_status);			
+				if(data.logined_frontend_status==false){
+					$('.anounce-login').text('Tên đăng nhập hoặc mật khẩu không đúng').css('color','red');
+				}else{
+					$('.anounce-login').text('Đăng nhập thành công').css('color','green');;					
+				}												
+			});
+			
+});
+	$('.login').click(function(){
+		$('.modal').modal('show');			
+	});		
+	$('.login a').click(function(e){
+		e.preventDefault();
+	});
+	
+	
+</script>
+<div class="modal fade">
+  <div class="modal-dialog modal-edit">
+    <div class="modal-content">    
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Đăng nhập</h4>
+      </div>      
+      <div class="modal-body">
+      	<div class="input-group">
+  			<input type="text" class="form-control" placeholder="Username" name="username">
+  			<span class="input-group-addon"><span class="glyphicon glyphicon-user glyphicon-mix"></span></span>
+		</div>
+		 <br>
+      	<div class="input-group">
+  			<input type="password" class="form-control" placeholder="Password" name="password">
+  			<span class="input-group-addon"><span class="glyphicon glyphicon-lock glyphicon-mix"></span></span>
+		</div>
+				
+	 	<span class="anounce-login"></span>
+      </div>     
+      <div class="modal-footer">
+       <button type="button" class="btn btn-default" id="login-pop-up-frontend">Đăng nhập</button>
+		<a href="<?= $this->basePath().'/news/auth/register' ?>" class="btn btn-default" id="register-frontend">Đăng ký</a>
+      </div>     
+    </div>    
+  </div>
+</div>
 <footer>
 <div class="row">
 

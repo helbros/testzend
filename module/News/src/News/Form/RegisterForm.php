@@ -73,15 +73,17 @@ class RegisterForm extends Form {
 		));
 		
 		$capt_image=new \Zend\Captcha\Image(array(
-				'font' => './data/font/arial.ttf',
+				'font' => './data/font/ARIAL.TTF',
 				'width' => 250,
 				'height' => 100,
 				'dotNoiseLevel' => 40,
 				'lineNoiseLevel' => 3
 		));
 		$capt_image->setImgDir('./data/captcha');
-		$uri = \Zend\Uri\UriFactory::factory('http://localhost/workspace/testzend/');				
-		$capt_image->setImgUrl($uri->getScheme().'://'.$uri->getHost().$uri->getPath().'data/captcha');
+		//getRequest()->getUri();
+		//$uri = \Zend\Uri\UriFactory::factory();				
+		//$capt_image->setImgUrl($uri->getScheme().'://'.$uri->getHost().$uri->getPath().'data/captcha');
+		$capt_image->setImgUrl('data/captcha');
 		
 		$this->add(array(
 				'name'=>'captcha',

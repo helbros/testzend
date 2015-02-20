@@ -146,7 +146,8 @@ class Module
     						));
     						$result_band=($validator_band->isValid($auth->getIdentity()->username))?	true:false;
     						return $result_band;
-    					}			    					
+    					},
+    								    					
     			)
     			
     	);
