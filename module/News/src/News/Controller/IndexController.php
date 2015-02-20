@@ -46,9 +46,59 @@ class IndexController extends AbstractActionController {
 			$this->getArticleTable()->insertArticle($data);
 		}
 	}
+	function publishArticleAction(){
+		$id_article=$this->params()->fromRoute('id');
+		$this->getArticleTable()->publish($id_article);
+	}
+	function unpublishArticleAction(){
+		$id_article=$this->params()->fromRoute('id');
+		$this->getArticleTable()->unpublish($id_article);
+	}
+	function deleteArticleAction(){
+		$id_article=$this->params()->fromRoute('id');
+		$this->getArticleTable()->delete($id_article);
+	}
 	function addcateArticle(){
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	function indexAction(){
 		$view=new ViewModel();
