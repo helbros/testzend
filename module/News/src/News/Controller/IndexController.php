@@ -25,6 +25,31 @@ use Zend\Captcha\Dumb;
 
 class IndexController extends AbstractActionController {
 	protected $userTable;
+	
+	function getArticleTable(){
+		return $this->getServiceLocator()->get('News\Model\Article');
+	}
+	function articledetailAction(){
+		$id_article=$this->params()->fromRoute('id');
+		$res=$this->getArticleTable()->getArticle($id_article);
+		return array('article'=>$res);
+	}
+	function addArticleAction(){
+		if($form->isPost()){
+			$this->getArticleTable()->insertArticle($data);
+		}
+	}
+	function editArticleAction(){
+		$id_article=$this->params()->fromRoute('id');
+		$res=$this->getArticleTable()->getArticle($id_article);
+		if($form->isPost()){
+			$this->getArticleTable()->insertArticle($data);
+		}
+	}
+	function addcateArticle(){
+		
+	}
+	
 	function indexAction(){
 		$view=new ViewModel();
 		$view_chat=new ViewModel();
