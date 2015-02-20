@@ -49,6 +49,26 @@ class ChatController extends AbstractActionController {
 		return $json;		
 	}
 	function managerAction(){
+		$res_chat=$this->getChatTable()->fecthAll();
+		return array('chat'=>$res_chat);
+	}
+	function deletechatAction(){
+		$id_message=$this->params('id');
+		$this->getChatTable()->delete($id_message);
+		$this->redirect()->toRoute('news/chat/manager');
+	}
+	function clearallchatAction(){
+		$this->getChatTable()->clearall();
+	}
+	function banchatAction(){
+		$id_user=$this->params('id_user');
+		$this->getChatTable()->banchat($id_user);
+	}
+	function unbanchatAction(){
+		$id_user=$this->params('id_user');
+		$this->getChatTable()->unbanchat($id_user);
+	}
+	function upiconAction(){
 		
 	}
 }
