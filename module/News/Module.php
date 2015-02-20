@@ -129,6 +129,14 @@ class Module
     						$table=new ArticleTable($tableGateway);
     						return $table;
     					},
+    					'News\Model\ChatTable'=>function($sm){
+    						$dbAdapter=$sm->get('Zend\Db\Adapter\Adapter');
+    						$resultSetPrototype=new ResultSet();
+    						$resultSetPrototype->setArrayObjectPrototype(new Chat());
+    						$tableGateway= new TableGateway('chat',$dbAdapter,null,$resultSetPrototype)
+    						$table=new ChatTable($tableGateway);
+    						return $table;
+    					},
     					'checkAuthBand'=>function ($sm){
     						$auth = new AuthenticationService ();
     						$validator_band=new RecordExists(array(
