@@ -48,16 +48,24 @@ class ArticleController extends AbstractActionController {
 		$id_article=$this->params()->fromRoute('id');
 		$this->getArticleTable()->delete($id_article);
 	}
+	
+	
+	
+	
+	/*
+	 * 
+	 * PHAN XU LY CATE ARTICLE
+	 */
 	function addCateArticleAction(){
 	 $cate_form=new CateForm();	 
 	 $request=$this->getRequest();
-	 $data=$this->getCateArticleTable()->fetchAll();	 
+	 $data=$this->getCateArticleTable()->getCateArticleList();	 
 	 $cate_option=array();
 	 foreach ($data as $val){
-	 	$cate_option[$val->id]=$val->title;
-	 	echo $val->id."-".$val->title."<br>";
+	 	$cate_option[$val->id]=$this->getCateArticleTable()->add_prefixCate($val->id).$val->title;
+	 	//echo $val->id."-".$this->getCateArticleTable()->add_prefixCate($val->id).$val->title."-".$val->path."<br>";
 	 }	 
-	 $cate_form->get('parent-id')->setValueOptions($cate_option);
+	 $cate_form->get('parent_id')->setValueOptions($cate_option);
 	 
 	 if ($request->isPost()) {
 	 	$filter=new CateFilter($this->getServiceLocator()->get('Zend\Db\Adapter\Adapter'));

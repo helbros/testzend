@@ -199,7 +199,17 @@ return array (
 																				'action' => 'addCateArticle'
 																		)
 																)
-														),													
+														),
+														'add-article' => array (
+																'type' => 'Literal',
+																'options' => array (
+																		'route' => '/add-article',
+																		'defaults' => array (
+																				'action' => 'addArticle'
+																		)
+																)
+														),
+														
 												)
 										),
 								) 

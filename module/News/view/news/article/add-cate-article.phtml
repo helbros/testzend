@@ -16,7 +16,7 @@ $form->setAttribute('action', $this->url('news/article/add-cate-article'));
 			<div class="col-md-3">  
 			<div class="input-group input-group-edit">			
 				<span class="input-group-addon">Chọn cấp danh mục:</span>									
-				 <?php echo $this->formRow($form->get('parent-id'));?>												
+				 <?php echo $this->formRow($form->get('parent_id'));?>												
 			</div>		
 			</div>
 		</div>
@@ -24,11 +24,11 @@ $form->setAttribute('action', $this->url('news/article/add-cate-article'));
 			<div class="col-md-7">  			
 					<div class="input-group input-group-edit">
 				  		<span class="input-group-addon">Danh mục</span>
-				  		<?php echo $this->formRow($form->get('cate-name'));?>	
+				  		<?php echo $this->formRow($form->get('title'));?>	
 				  	</div>
 					<div class="input-group input-group-edit">
 				  		<span class="input-group-addon">Alias</span>
-				  		<?php echo $this->formRow($form->get('alias-cate-name'));?>	
+				  		<?php echo $this->formRow($form->get('alias'));?>	
 				  	</div>				  	
 				  				  	
 				 <div class="pull-right">

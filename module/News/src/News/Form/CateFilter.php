@@ -13,7 +13,7 @@ class CateFilter extends InputFilter {
 				)
 		)); */
 		$this->add(array(
-				'name'=>'cate-name',
+				'name'=>'title',
 				'required'=>true,
 				'validators'=>array(
 						array(

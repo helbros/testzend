@@ -33,4 +33,18 @@ class CateArticleTable {
 		$result=$this->tableGateway->select(array('id'=>$where));
 		return $result->current();
 	}
+	function getCateArticleList(){
+		$select=new Select();
+		$select->from('categories_article')->order('path ASC');
+		return $this->tableGateway->selectWith($select);
+	}
+	function add_prefixCate($cate_id){
+		$prefix_level='';
+		$path=$this->getWhere($cate_id);
+		$level=substr_count($path->path, '-');
+		for ($i=1;$i<=$level;$i++){
+			$prefix_level.='---------/';
+		}
+		return $prefix_level;
+	}
 }

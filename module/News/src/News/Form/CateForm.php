@@ -5,7 +5,7 @@ class CateForm extends Form {
 	public function __construct() {
 		parent::__construct('cate');
 		$this->add(array(
-				'name'=>'parent-id',
+				'name'=>'parent_id',
 				'type'=>'Select',
 				'attributes'=>array(						
 						'class'=>'form-control',
@@ -18,7 +18,7 @@ class CateForm extends Form {
 				)
 		));
 		$this->add(array(
-				'name'=>'cate-name',
+				'name'=>'title',
 				'attributes'=>array(
 						'type'=>'text',
 						'class'=>'form-control',
@@ -28,7 +28,7 @@ class CateForm extends Form {
 				)
 		));
 		$this->add(array(
-				'name'=>'alias-cate-name',
+				'name'=>'alias',
 				'attributes'=>array(
 						'type'=>'text',
 						'class'=>'form-control',
