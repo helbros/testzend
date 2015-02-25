@@ -1,0 +1,46 @@
+<?php 
+$form=$this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url('news/article/add-cate-article'));
+?>
+<div class="row-fluid">		
+	<div class="col-md-2">
+		<div class="list-group">
+		  <a href="index.php/admin/cms/categories" class="list-group-item">Quản lý danh mục </a>
+		  <a href="index.php/admin/cms/addcate_article" class="list-group-item">Thêm danh mục</a>		 		  
+		</div>
+	</div>
+	<div class="col-md-10">	
+	<?php echo $this->form()->openTag($form)?>
+		<div class="row">					
+			<div class="col-md-3">  
+			<div class="input-group input-group-edit">			
+				<span class="input-group-addon">Chọn cấp danh mục:</span>									
+				 <?php echo $this->formRow($form->get('parent-id'));?>												
+			</div>		
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-7">  			
+					<div class="input-group input-group-edit">
+				  		<span class="input-group-addon">Danh mục</span>
+				  		<?php echo $this->formRow($form->get('cate-name'));?>	
+				  	</div>
+					<div class="input-group input-group-edit">
+				  		<span class="input-group-addon">Alias</span>
+				  		<?php echo $this->formRow($form->get('alias-cate-name'));?>	
+				  	</div>				  	
+				  				  	
+				 <div class="pull-right">
+					  	<div class="btn-group">  	
+					  	<button type="submit" class="btn btn-default" name="add-book" id="add-book" value="add-book">Lưu</button>
+					  	<button type="button" class="btn btn-default" name="delete" value="delete">Xóa</button>		  	
+					  </div>    
+					</div>
+			
+			</div>				
+		</div>
+		<?php echo $this->form()->closeTag($form);?>			
+	</div>
+</div>
+

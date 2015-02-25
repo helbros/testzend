@@ -25,81 +25,7 @@ use Zend\Captcha\Dumb;
 
 class IndexController extends AbstractActionController {
 	protected $userTable;
-	
-	function getArticleTable(){
-		return $this->getServiceLocator()->get('News\Model\Article');
-	}
-	function articledetailAction(){
-		$id_article=$this->params()->fromRoute('id');
-		$res=$this->getArticleTable()->getArticle($id_article);
-		return array('article'=>$res);
-	}
-	function addArticleAction(){
-		if($form->isPost()){
-			$this->getArticleTable()->insertArticle($data);
-		}
-	}
-	function editArticleAction(){
-		$id_article=$this->params()->fromRoute('id');
-		$res=$this->getArticleTable()->getArticle($id_article);
-		if($form->isPost()){
-			$this->getArticleTable()->insertArticle($data);
-		}
-	}
-	function publishArticleAction(){
-		$id_article=$this->params()->fromRoute('id');
-		$this->getArticleTable()->publish($id_article);
-	}
-	function unpublishArticleAction(){
-		$id_article=$this->params()->fromRoute('id');
-		$this->getArticleTable()->unpublish($id_article);
-	}
-	function deleteArticleAction(){
-		$id_article=$this->params()->fromRoute('id');
-		$this->getArticleTable()->delete($id_article);
-	}
-	function addcateArticle(){
 		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	function indexAction(){
 		$view=new ViewModel();
 		$view_chat=new ViewModel();
@@ -117,9 +43,7 @@ class IndexController extends AbstractActionController {
 		$captcha=new Captcha('captcha');
 		$captcha->setCaptcha(new Dumb());
 		$captcha->setLabel('Verify human :');
-		
-		
-		
+					
 		$form=new Form();
 		$form->setAttribute('method', 'post');	
 		$form->add($captcha);	

@@ -22,7 +22,7 @@ class RegisterFilter extends InputFilter {
 										'max' => 10 
 								) 
 						),
-						array (
+						/* array (
 								'name' => 'Zend\Validator\Db\NoRecordExists',
 								'options' => array (
 										'table' => 'userz',
@@ -32,7 +32,7 @@ class RegisterFilter extends InputFilter {
 												NoRecordExists::ERROR_RECORD_FOUND => 'Usernam đã tồn tại' 
 										) 
 								) 
-						)
+						) */
 						 
 				) 
 		) );

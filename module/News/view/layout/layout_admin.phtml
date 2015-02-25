@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base href="<?php echo $this->basePath(); ?>" />
+<meta charset="utf-8">
+<?php echo $this->headTitle(); ?>
+
+<?php echo $this->headLink()->prependStylesheet($this->basePath()."/css/bootstrap.css")
+							->appendStylesheet($this->basePath() . '/css/style.css');?>
+<!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+            ->appendFile($this->basePath() . '/js/jquery.jcarousel.min.js')
+            ->appendFile($this->basePath() . '/js/temp.js')
+        ; ?>
+
+</head>
+
+<body>
+<div id="wrapper" class="">
+<div class="row-fluid">
+  <header class="header">
+	<nav class="navbar navbar-default" role="navigation">
+	<ul class="nav navbar-nav">
+		<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Home <span class="caret"></span></a>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="<?=base_url()."index.php/admin/home"?>">Home</a></li>
+				<li><a href="<?=base_url()."index.php/admin/cms/article"?>">Thông tin hệ thống</a></li>
+				<li><a href="<?=base_url()."index.php/admin/cms/categories"?>">Cấu hình</a></li>				
+				<li class="divider"></li>
+				<li><a href="#">Separated link</a></li>
+				<li class="divider"></li>
+				<li><a href="#">One more separated link</a></li>
+			</ul>
+		</li>
+		<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tin tức<span class="caret"></span></a>
+			<ul class="dropdown-menu" role="menu">				
+				<li><a href="<?=base_url()."index.php/admin/cms/article"?>">Tin tức</a></li>
+				<li><a href="<?=base_url()."index.php/admin/cms/categories"?>">Danh mục bài viết</a></li>								
+			</ul>
+		</li>
+		<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sách <span class="caret"></span></a>
+			<ul class="dropdown-menu" role="menu">				
+				<li><a href="<?=base_url()."index.php/admin/home/book"?>">Sách</a></li>							
+				<li><a href="order">Danh mục sách</a></li>								
+			</ul>
+		</li>
+		<li><a href="index.php/admin/cart">Giỏ hàng</a></li>	
+				
+	</ul>
+	<ul class="pull-right">
+			<span class="label label-primary"><?php //echo $user;?></span>
+			<a class="btn btn-default" href="index.php/home" target="_blank">Trang chủ</a>			
+			<a class="btn btn-default" href="index.php/auth/logout">Đăng xuất</a>
+	</ul>
+</nav>
+  </header>
+  <div class="content">
+  	<?= $content?>
+  </div>
+  <footer class="footer"></footer>
+</div>
+</div>
+</body>
+</html>

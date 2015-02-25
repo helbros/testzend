@@ -84,12 +84,11 @@ class AuthController extends AbstractActionController {
 		);
 	}
 	function testAction() {
-		$user = $this->getUserTable ()->getUser ( 'guest', true );
-		echo print_r ( $user );
-		$bcrypt = new Bcrypt ();
-		$hash = '$2y$10$USVWSXFseTA4SW16a2pPceGl0XtUkpr0gfouOIDI17GaxGu/ShL7S';
-		// $bcrypt->setSalt($this->createSalt());
-		$pass = $bcrypt->create ( '123' );
+		//$user = $this->getUserTable ()->getUser ( 'guest', true );
+		//echo print_r ( $user );
+		$bcrypt = new Bcrypt (array('salt'=>'fScVO^!dn_rPVXNG*'));		
+		//$bcrypt->setSalt('$#3i3xPi$flS0yyE=');
+		$pass = $bcrypt->create ( '123456' );
 		
 		echo "pass : $pass<br>";
 		echo "salt : " . $bcrypt->getSalt () . '<br>';
@@ -101,6 +100,7 @@ class AuthController extends AbstractActionController {
 	function loginAction() {
 		$container = new Container ( 'helbros' );
 		echo $container->test;
+		
 		// create link login fb
 		$helper = new FacebookRedirectLoginHelper ( 'http://homestock.vn/testzend/public/news/auth/loginfb' );
 		$link_login_fb = $helper->getLoginUrl ();
@@ -120,11 +120,13 @@ class AuthController extends AbstractActionController {
 				$dbAdapter = $this->getServiceLocator ()->get ( 'Zend\Db\Adapter\Adapter' );
 				$user = $this->getUserTable ()->getUser ( $data ['username'], true );
 				$final_password = (new Bcrypt ( array (
-						'salt' => $user->salt 
-				) ))->create ( $data ['password'] );
+						'salt' => $user->salt 						
+				) ))->create ( $data ['password'] );				
+				
 				$authAdapter = new DbTable ( $dbAdapter, 'userz', 'username', 'password' );
 				$authAdapter->setIdentity ( $data ['username'] );
 				$authAdapter->setCredential ( $final_password );
+				
 				$resultAuth = $auth->authenticate ( $authAdapter );
 				$auth->getStorage ()->write ( $authAdapter->getResultRowObject ( array (
 						'id',
@@ -133,7 +135,7 @@ class AuthController extends AbstractActionController {
 				) ) );
 				if ($resultAuth->isValid ()) {
 					echo 'all valid <br>';
-					$this->redirect ()->toRoute ( 'news/manager' );
+					//$this->redirect ()->toRoute ( 'news/manager' );
 				} else {
 					foreach ( $resultAuth->getMessages () as $mess ) {
 						$messAuth .= $mess;

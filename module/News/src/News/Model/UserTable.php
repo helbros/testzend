@@ -41,12 +41,14 @@ class UserTable  {
 		return $rowset->current();
 	}
 	function insertUser(User $data){
-		$bcrypt=new Bcrypt();
-		$bcrypt->setSalt($this->createSalt());
+		$bcrypt=new Bcrypt(array('salt'=>$this->createSalt()));
+		$pass=$bcrypt->create($data->password);
+		$salt=$bcrypt->getSalt();
+		
 		$data=array(
 				'username'=>$data->username,
-				'password'=>$bcrypt->create($data->password),
-				'salt'=>$bcrypt->getSalt(),
+				'password'=>$pass,
+				'salt'=>$salt,
 				'email'=>$data->email,
 				'title_user'=>'member',				
 		);		

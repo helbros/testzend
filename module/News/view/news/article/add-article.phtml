@@ -1,0 +1,89 @@
+<script>
+$(document).ready(function(){
+	//cấu hình cho tinymce
+	tinymce.init({
+		selector: "textarea",theme: "modern",width: 680,height: 300,
+		relative_urls:false,
+		remove_script_host:false,
+	    plugins: [
+	         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+	         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+	         "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+	   ],
+	   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+	   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code | mybutton ",
+	   image_advtab: true ,
+	   
+	   external_filemanager_path:"http://localhost/workspace/testzend/filemanager/",
+	   filemanager_title:"Responsive Filemanager" ,
+	   external_plugins: { "filemanager" : "http://localhost/workspace/testzend/filemanager/plugin.min.js"},
+		
+		
+		
+		//-----------------------
+	    /*selector: "textarea",
+	    toolbar: "undo redo | styleselect | bold italic | link image | alignleft | aligncenter | alignright | mybutton",	*/    
+	    setup: function(editor) {
+	        editor.addButton('mybutton', {
+	            text: 'Read more',
+	            icon: false,
+	            onclick: function() {
+	                editor.insertContent('@--Readmore--@');
+	           	 }
+	        	});
+	        }
+	 });
+});
+</script>
+<div class="row">		
+	<div class="col-md-2">
+		<div class="list-group">
+			   <a href="index.php/admin/cms/article" class="list-group-item">Quản lý bài viết </a>
+			  <a href="index.php/admin/cms/add_article" class="list-group-item">Thêm bài viết</a>
+			  
+			  
+		</div>
+	</div>
+	<div class="col-md-10">	
+		<div class="row">
+		<form action="" method="post">					
+			<div class="col-md-3">  
+			<div class="input-group input-group-edit">			
+				<span class="input-group-addon">Danh mục:</span>
+										
+			</div>					
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-7">  
+			
+					<div class="input-group input-group-edit">
+				  		<span class="input-group-addon">Tên bài viết</span>
+				  		<input type="text" class="form-control input-mix" name="article-name">
+				  	</div>
+					<div class="input-group input-group-edit">
+				  		<span class="input-group-addon">Tên alias</span>
+				  		<input type="text" class="form-control input-mix" name="article-alias">
+				  	</div>
+				  	<label class="">Nội dung</label>
+				  	<textarea rows="15" cols="100" name="article-content"></textarea>					  	
+				  				  	
+				 <div class="pull-right">
+					  	<div class="btn-group">  	
+					  	<button type="submit" class="btn btn-default" name="add-article" id="add-book" value="add-article">Lưu bài viết</button>
+					  	<button type="button" class="btn btn-default" name="delete" value="delete">Xóa</button>		  	
+					  </div>    
+					</div>
+			
+			</div>	
+			<div class="col-md-4">
+			<div class="pull-right"> 				
+				<input type="file" class="form-control" placeholder="" name="memberfile">
+			</div>								
+			</div>		
+		</div>	
+		</form>
+	</div>
+</div>
+

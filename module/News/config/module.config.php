@@ -179,7 +179,29 @@ return array (
 																)
 														),
 												)
-										)
+										),
+										'article' => array (
+												'type' => 'Literal',
+												'options' => array (
+														'route' => '/article',
+														'defaults' => array (
+																'controller' => 'News\Controller\article',
+																'action' => 'index'
+														)
+												),
+												'may_terminate' => true,
+												'child_routes' => array (
+														'add-cate-article' => array (
+																'type' => 'Literal',
+																'options' => array (
+																		'route' => '/add-cate-article',																		
+																		'defaults' => array (
+																				'action' => 'addCateArticle'
+																		)
+																)
+														),													
+												)
+										),
 								) 
 						),
 						'manager' => array (
@@ -260,7 +282,8 @@ return array (
 						'News\Controller\Manager' => 'News\Controller\ManagerController',
 						'News\Controller\Auth' => 'News\Controller\AuthController',
 						'News\Controller\Chat' => 'News\Controller\ChatController', 
-						'News\Controller\Stock' => 'News\Controller\StockController'
+						'News\Controller\Stock' => 'News\Controller\StockController',
+						'News\Controller\Article' => 'News\Controller\ArticleController'
 				) 
 		),
 		'view_manager' => array (
