@@ -20,7 +20,7 @@
              <?php foreach ($this->pagesInRange as $page): ?>
                  <?php if ($page != $this->current): ?>
                      <li>
-                         <a href="<?php echo $this->url($this->route,array('page'=> $page)); ?>">
+                         <a href="<?php echo $this->url($this->route,array('page'=> $page),FALSE, TRUE); ?>">
                              <?php echo $page; ?>
                          </a>
                      </li>

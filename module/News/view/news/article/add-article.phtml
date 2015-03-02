@@ -35,6 +35,10 @@ $(document).ready(function(){
 	 });
 });
 </script>
+<?php 
+$form=$this->form;
+$form->prepare();
+?>
 <div class="row">		
 	<div class="col-md-2">
 		<div class="list-group">
@@ -48,26 +52,21 @@ $(document).ready(function(){
 		<div class="row">
 		<form action="" method="post">					
 			<div class="col-md-3">  
-			<div class="input-group input-group-edit">			
-				<span class="input-group-addon">Danh mục:</span>
-										
+			<div class="input-group input-group-edit">							
+				 <?php echo $this->formRow($form->get('cate_article_id'));?>								
 			</div>					
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-md-7">  
-			
-					<div class="input-group input-group-edit">
-				  		<span class="input-group-addon">Tên bài viết</span>
-				  		<input type="text" class="form-control input-mix" name="article-name">
+			<div class="col-md-8">  			
+					<div class="input-group input-group-edit">									  	
+				  		<?php echo $this->formRow($form->get('title'));?>
 				  	</div>
-					<div class="input-group input-group-edit">
-				  		<span class="input-group-addon">Tên alias</span>
-				  		<input type="text" class="form-control input-mix" name="article-alias">
-				  	</div>
-				  	<label class="">Nội dung</label>
-				  	<textarea rows="15" cols="100" name="article-content"></textarea>					  	
+					<div class="input-group input-group-edit">				  		
+				  		<?php echo $this->formRow($form->get('alias'));?>
+				  	</div>				  	
+				  		<?php echo $this->formRow($form->get('full_text'));?>					  	
 				  				  	
 				 <div class="pull-right">
 					  	<div class="btn-group">  	

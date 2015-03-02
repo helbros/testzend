@@ -191,6 +191,31 @@ return array (
 												),
 												'may_terminate' => true,
 												'child_routes' => array (
+														'detail-article' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/detail-article[/:id]',
+																		'constrains'=>array(
+																			'id'=>'[a-zA-Z][a-zA-Z0-9_-]*' 
+																		),
+																		'defaults' => array (
+																				'action' => 'detailArticle'
+																		)
+																)
+														),
+														'list-article' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/list-article/id[/:id][/page/:page]',
+																		'constrains'=>array(
+																				'id'=>'[a-zA-Z][a-zA-Z0-9_-]*',
+																				'page'=>'[a-zA-Z][a-zA-Z0-9_-]*'
+																		),
+																		'defaults' => array (
+																				'action' => 'listArticle'
+																		)
+																)
+														),
 														'add-cate-article' => array (
 																'type' => 'Literal',
 																'options' => array (
@@ -247,14 +272,15 @@ return array (
 						
 						// config of first page
 						'news' => array (
-								'label' => 'ĐIỂM BÁO',
-								'route' => 'news' 
+								'label' => 'HOME',
+								'route' => 'news/manager/home' 
 						),
 						
 						// config of another page
 						'phantich' => array (
 								'label' => 'PHÂN TÍCH',
-								'route' => 'news'
+								'route' => 'news/article/list-article',
+								'params'=>array('id'=>1)
 						),
 						'nhandinh' => array (
 								'label' => 'NHẬN ĐỊNH',

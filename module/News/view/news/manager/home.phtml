@@ -35,6 +35,14 @@ $(document).ready(function(){
 	}
 );
 </script>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&appId=796421970418552&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="row">
 	<div class="col-md-8">
 		<?php echo $this->chatbox;?>
@@ -48,13 +56,21 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
-<div class="row view-stock-panel"></div>
+<div class="row view-stock-panel">
+<div id="fb-root"></div>
+
+
+
+
+
+
+</div>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-9">
 		<h3>Tin tức</h3>
 		<ul class="list-unstyled list-article ul-custom">
 	<?php foreach ($this->paginator as $art):?>
-		<a href="#">
+		<a href="<?=$this->url('news/article/detail-article',array('id'=>$art->id)) ?>">
 				<li>
 					<p class="thumb">Thumbs</p>
 					<p class="title"><?=$art->title?></p>
@@ -64,7 +80,7 @@ $(document).ready(function(){
 			</a>
 		<?php endforeach;?>		
 	</ul>
-	</div>
+	
 	<div class="row"><?php
 	
 	echo $this->paginationControl ( $this->paginator, 'sliding', array (
@@ -74,6 +90,11 @@ $(document).ready(function(){
 			'route' => 'news/manager/paginator' 
 	) )?>
 	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="fb-like-box" data-href="https://www.facebook.com/homestock.vn" data-height="500" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
+	</div>
+	
 </div>
 
 

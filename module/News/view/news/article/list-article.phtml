@@ -1,0 +1,36 @@
+<div class="row">
+	<div class="col-md-9">		
+		<ul class="list-unstyled list-article-vertical ul-custom border-well">
+	<?php foreach ($this->list_article as $art):?>
+		<a href="<?=$this->url('news/article/detail-article',array('id'=>$art->id)) ?>">
+				<li>
+					<span class="thumb"><img alt="" src="<?=$this->custom_helper()->getFirstLink($art->full_text) ?>"></span>
+					<span class="detail">
+						<p class="title-vertical"><?=$art->title?></p>
+						<p class="review"><?=$art->intro_text?></p>						
+						<p class="infor-article-vertical pull-right">
+							<span><i class="fa fa-eye"></i><?=$art->cate_title  ?></span>
+							<span><i class="fa fa-comments"></i><?=$art->created_by?></span>
+							<span><i class="fa fa-heart"></i><?=$art->created_by ?></span>								
+						</p>
+					</span>					
+			   </li>
+			</a>
+		<?php endforeach;?>		
+	</ul>
+	
+	<div class="row"><?php
+	
+	echo $this->paginationControl ( $this->list_article, 'sliding', array (
+			'partial/paginator.phtml',
+			'News' 
+	), array (
+			'route' => 'news/article/list-article' 
+	) )?>
+	</div>
+	</div>
+	<div class="col-md-3">
+	<div class="fb-like-box" data-href="https://www.facebook.com/homestock.vn" data-height="500" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
+	</div>
+	
+</div>

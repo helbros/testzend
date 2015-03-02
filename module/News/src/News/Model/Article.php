@@ -14,6 +14,7 @@ class Article {
 	public $publish;
 	public $hits;
 	public $featured;
+	public $cate_title;
 	function exchangeArray($data) {
 		$this->id=!empty($data['id'])? $data['id']:null;
 		$this->cate_article_id=!empty($data['cate_article_id'])? $data['cate_article_id']:null;
@@ -28,5 +29,6 @@ class Article {
 		$this->publish=!empty($data['publish'])? $data['publish']:null;
 		$this->hits=!empty($data['hits'])? $data['hits']:null;
 		$this->featured=!empty($data['featured'])? $data['featured']:null;
+		$this->cate_title=!empty($data['cate_title'])? $data['cate_title']:null;
 	}
 }

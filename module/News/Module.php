@@ -28,8 +28,10 @@ use News\Model\Chat;
 use News\Model\ChatTable;
 use News\Model\CateArticleTable;
 use News\Model\CateArticle;
-
-class Module {
+use News\View\Helper\CustomHelper;
+use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
+ 
+class Module implements ViewHelperProviderInterface{
 	public function onBootstrap(MvcEvent $e) {
 		define ( 'BASE_URL', 'qweqwe' );
 		$eventManager = $e->getApplication ()->getEventManager ();
@@ -154,10 +156,25 @@ class Module {
 							) );
 							$result_band = ($validator_band->isValid ( $auth->getIdentity ()->username )) ? true : false;
 							return $result_band;
+						},
+						'getAuth'=>function ($sm){
+								$auth = new AuthenticationService ();
+								return $auth->getIdentity();
 						} 
+						
 				)
 				 
 		)
 		;
+	}
+	function getViewHelperConfig(){
+		return array(
+			'factories'=>array(
+					'custom_helper'=>function ($sm){
+						$helper=new CustomHelper();
+						return $helper;
+					}
+			)	
+		);
 	}
 }

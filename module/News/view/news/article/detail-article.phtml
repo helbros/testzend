@@ -1,0 +1,117 @@
+<div id="fb-root"></div>
+<script type="text/javascript"
+	src="https://apis.google.com/js/plusone.js"></script>
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&appId=796421970418552&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+$(document).ready(function(){	
+	$(".fb-share-but").click(function(){	
+		FB.ui(
+				  {
+				    method: 'share',
+				    href: window.location.href,
+				  },
+				  function(response) {
+				    if (response && !response.error_code) {
+				      alert('Cám ơn bạn đã chi sẽ bài viết.');
+				    } else {
+				      alert('Error while posting.');
+				    }
+				  }
+				);
+	});
+	$(".google-share-but").click(function(){
+		window.open('https://plus.google.com/share?url={'+window.location.href+'}','', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+	});
+	
+});
+</script>
+<div class="row main-content">
+	<div class="col-md-8 border-well content">
+		<h2><?=$article->title ?></h2>
+		<ul class="list-unstyled infor-article">
+			<li><span class="glyphicon glyphicon-folder-open"><a href="" title="Danh mục"><?=$article->cate_title  ?></a></span></li>
+			<li><span class="glyphicon glyphicon-user"><a href="" title="Người viết"><?=$article->created_by?></a></span></li>
+			<li><span class="glyphicon glyphicon-time"><a href="" title="Ngày đăng"><?=$article->created ?></a></span></li>			
+		</ul>
+		<p class="text-justify"><?=str_replace('@--Readmore--@','', $article->full_text) ?></p>
+
+		<div class="pull-right">
+			<div class="fb-like" data-href="https://homestock.vn"
+				data-layout="button_count" data-action="like" data-show-faces="true"
+				data-share="true"></div>
+			<g:plusone></g:plusone>
+			<a href="https://twitter.com/share" class="twitter-share-button"
+				data-via="homestockvn" data-related="homestock">Tweet</a>
+		</div>
+		<br> <br> <br>
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Nhận xét</h4>
+
+				<div id="disqus_thread"></div>
+				<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'homestock2u';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+				<noscript>
+					Please enable JavaScript to view the <a
+						href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+						powered by Disqus.</a>
+				</noscript>
+
+			</div>
+		</div>
+
+
+	</div>
+	<div class="col-md-4">
+		<div class="share-block">
+			<ul class="list-unstyled well share-list">
+				<h4>Share bài viết này</h4>
+				<li><span class="fa fa-facebook fb-share-but"></span></li>
+                <li><span class="fa fa-google-plus google-share-but"></span></li>
+                <li><span class="fa fa-twitter"></span></li>
+			</ul>
+		</div>
+		<ul class="list-news well list-unstyled">			
+			<?php
+			
+			  foreach ($relate_news as $item):?>
+			  <li class="news-item">
+			  	<a href="<?=$this->url('news/article/detail-article',array('id'=>$item->id)) ?>"> 
+			  		<img class="img-responsive" src="<?=$this->custom_helper()->getFirstLink($item->full_text) ?>">
+			  		<h5><?=$item->title ?></h5>
+			  		
+			  	</a>
+			  </li>
+			  <?php endforeach;?>
+			<li class="news-item"><a href="news" class="pull-right">Xem tất cả</a>
+			</li>
+		</ul>
+	</div>
+</div>
+</div>
+
+<div></div>
+<br>
+<br>

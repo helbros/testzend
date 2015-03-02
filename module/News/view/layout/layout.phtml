@@ -5,25 +5,48 @@
 <meta charset="utf-8">
 <?php echo $this->headTitle(); ?>
 
-<?php echo $this->headLink()->prependStylesheet($this->basePath()."/css/bootstrap.css")
-							->appendStylesheet($this->basePath() . '/css/style.css');?>
+<?php
+
+echo $this->headLink ()
+->prependStylesheet ( $this->basePath () . "/css/bootstrap.css" )
+->appendStylesheet ( $this->basePath () . '/font-awesome/css/font-awesome.min.css' )
+->appendStylesheet ( $this->basePath () . '/css/style.css' );
+?>
 <!-- Scripts -->
-        <?php echo $this->headScript()
-            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-            ->prependFile($this->basePath() . '/js/jquery.min.js')
-            ->appendFile($this->basePath() . '/js/jquery.jcarousel.min.js')
-            ->appendFile($this->basePath() . '/js/temp.js')
-            ->appendFile($this->basePath() . '/plugin/tinymce/tinymce.min.js')
-           
-        ; ?>
+        <?php
+								
+echo $this->headScript ()->prependFile ( $this->basePath () . '/js/bootstrap.min.js' )->prependFile ( $this->basePath () . '/js/jquery.min.js' )->appendFile ( $this->basePath () . '/js/jquery.jcarousel.min.js' )->appendFile ( $this->basePath () . '/js/temp.js' )->appendFile ( $this->basePath () . '/plugin/tinymce/tinymce.min.js' );
+
+								
+								?>
 
 </head>
 <body>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '684652011592771',
+          xfbml      : true,
+          version    : 'v2.1'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+
 	<div class="container container-custom">
-		<nav class="navbar navbar-default navbar-fixed-top">
+		<nav class="navbar navbar-default navbar-fixed-top hidden-xs">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#"> <img class="img-responsive" alt="Brand" src="<?php //echo $this->basePath('img/mini-hs.jpg')?>">
+					<a class="navbar-brand" href="#"> <img class="img-responsive"
+						alt="Brand"
+						src="<?php //echo $this->basePath('img/mini-hs.jpg')?>">
 					</a>
 				</div>
 				<ul class="list-unstyled nav navbar-nav pull-right main-menu">
@@ -36,44 +59,45 @@
 						
 			</div>
 		</nav>
-		
-		
-		
-		
-		
+		<nav class="visible-xs">Mini nav</nav>
+
+
+
+
+
 		<br>
 		<div class="row"></div>
 		<div class="row"><?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumb.phtml');?></div>
 		<div class="row">
-			<div class="col-md-12"><?php echo $this->content;?></div>			
-		</div>		
+			<div class="col-md-12"><?php echo $this->content;?></div>
+		</div>
 	</div>
-	
+
 	<!-- test loader -->
-<div id="loader" style="display: none">
-	<div class="spinner">
-		<div class="spinner-container container1">
-			<div class="circle1"></div>
-			<div class="circle2"></div>
-			<div class="circle3"></div>
-			<div class="circle4"></div>
-		</div>
-		<div class="spinner-container container2">
-			<div class="circle1"></div>
-			<div class="circle2"></div>
-			<div class="circle3"></div>
-			<div class="circle4"></div>
-		</div>
-		<div class="spinner-container container3">
-			<div class="circle1"></div>
-			<div class="circle2"></div>
-			<div class="circle3"></div>
-			<div class="circle4"></div>
+	<div id="loader" style="display: none">
+		<div class="spinner">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container2">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container3">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
 		</div>
 	</div>
-</div>
-<!-- Modal -->
-<script>
+	<!-- Modal -->
+	<script>
 $(document).on('click','#login-pop-up-frontend',function(){
 	$.post(base_url+'/news/auth/loginajax',
 			{
@@ -99,38 +123,102 @@ $(document).on('click','#login-pop-up-frontend',function(){
 	
 	
 </script>
-<div class="modal fade">
-  <div class="modal-dialog modal-edit">
-    <div class="modal-content">    
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Đăng nhập</h4>
-      </div>      
-      <div class="modal-body">
-      	<div class="input-group">
-  			<input type="text" class="form-control" placeholder="Username" name="username">
-  			<span class="input-group-addon"><span class="glyphicon glyphicon-user glyphicon-mix"></span></span>
-		</div>
-		 <br>
-      	<div class="input-group">
-  			<input type="password" class="form-control" placeholder="Password" name="password">
-  			<span class="input-group-addon"><span class="glyphicon glyphicon-lock glyphicon-mix"></span></span>
-		</div>
-				
-	 	<span class="anounce-login"></span>
-      </div>     
-      <div class="modal-footer">
-       <button type="button" class="btn btn-default" id="login-pop-up-frontend">Đăng nhập</button>
-		<a href="<?= $this->basePath().'/news/auth/register' ?>" class="btn btn-default" id="register-frontend">Đăng ký</a>
-      </div>     
-    </div>    
-  </div>
-</div>
-<footer>
-<div class="row">
+	<div class="modal fade">
+		<div class="modal-dialog modal-edit">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Đăng nhập</h4>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Username"
+							name="username"> <span class="input-group-addon"><span
+							class="glyphicon glyphicon-user glyphicon-mix"></span></span>
+					</div>
+					<br>
+					<div class="input-group">
+						<input type="password" class="form-control" placeholder="Password"
+							name="password"> <span class="input-group-addon"><span
+							class="glyphicon glyphicon-lock glyphicon-mix"></span></span>
+					</div>
 
-</div>
-</footer>
+					<span class="anounce-login"></span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default"
+						id="login-pop-up-frontend">Đăng nhập</button>
+					<a href="<?= $this->basePath().'/news/auth/register' ?>"
+						class="btn btn-default" id="register-frontend">Đăng ký</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="">
+		<div class="container container-custom">
+			<div class="row top-footer">
+				<div class="col-md-3">
+					<img class="logo-btm" alt="" src="public/img/slogan4home.png">
+					<p class="sign">Tyche Developer's</p>
+				</div>
+				<div class="col-md-3">
+					<ul class="nav connect">
+						<li class="page-header">Chuyên mục</li>
+						<li><a
+							href="http://homestock.vn/forum/forumdisplay.php/19-Kinh-Nghiem.html"
+							target="_blank">Kinh Nghiệm</a></li>
+						<li><a
+							href="http://homestock.vn/forum/forumdisplay.php/18-Kien-Thuc.html"
+							target="_blank">Kiến Thức</a></li>
+						<li><a
+							href="http://homestock.vn/forum/forumdisplay.php/8-Phan-tich-Danh-gia-doanh-nghiep.html"
+							target="_blank">Phân Tích - Đánh giá doanh nghiệp</a></li>
+						<li><a
+							href="http://homestock.vn/forum/forumdisplay.php/9-Nhan-dinh-kinh-te-Tai-chinh-Thi-truong.html"
+							target="_blank">Nhận Định Kinh Tế </a></li>
+						<li><a
+							href="http://homestock.vn/forum/forumdisplay.php/24-Tin-tuc-doanh-nghiep-niem-yet.html"
+							target="_blank">Tin tức doanh nghiệp niêm yết</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">
+					<ul class="nav connect">
+						<li class="page-header">Sản phẩm</li>
+						<li class=""><a href="http://homestock.vn/home" target="_blank">Tin
+								tức</a></li>
+						<li class=""><a href="http://homestock.vn/forum" target="_blank">Diễn
+								đàn</a></li>
+						<li class=""><a href="#">Kho thuật ngữ (coming soon)</a></li>
+						<li class=""><a href="#">Phân tích kỹ thuật (coming soon)</a></li>
+						<li class=""><a href="http://homestock.vn/quanlydautu"
+							target="_blank">Quản lý đầu tư</a></li>
+						<li class=""><a href="http://homestock.vn/bet" target="_blank">Game
+								cược bóng đá ảo (beta)</a></li>
+						<li class=""><a href="http://homestock.vn/book" target="_blank">Cửa
+								hàng sách </a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">										
+                    <ul class="list-unstyled contact nav">
+                    <li class="page-header">Kết nối</li>                                
+                    
+                    <li><p><strong><i class="fa fa-facebook-official"></i> Facebook :</strong> <a href="#">fb.com/homestock.vn</a></p></li>
+                    <li><p><strong><i class="fa fa-google-plus"></i> G+ :</strong> <a href="#">google.com/homestock.vn</a></p></li>
+                                <li><p><strong><i class="fa fa-twitter"></i> Twitter :</strong> <a href="#">twitter.com/homestockvn</a></p></li>                                
+                                <li><p><strong><i class="fa fa-yahoo"></i> Yahoo :</strong> <a href="#">homestockvn@yahoo.com</a></p></li>
+                                <li><p><strong><i class="fa fa-envelope"></i> Mail Us :</strong> <a href="#">homestockvn@gmail.com</a></p></li>
+                                <li> <p><strong><i class="fa fa-skype"></i> Skype :</strong> homestock.vn</p></li>
+
+                            </ul>
+				</div>
+			</div>			
+		</div>
+		<div class="row btm-bar">
+				<p class="copyright text-center">HomeStock 2014</p>
+			</div>
+	</footer>
 </body>
 </html>
 
