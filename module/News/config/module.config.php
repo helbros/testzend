@@ -178,6 +178,18 @@ return array (
 																		)
 																)
 														),
+														'getstockinfo' => array (
+																'type' => 'Segment',
+																'options' => array (
+																		'route' => '/getstockinfo/[:stockname]',
+																		'constraints'=>array(
+																				'stockname'=>'[a-zA-Z][a-zA-Z0-9_-]*'
+																		),
+																		'defaults' => array (
+																				'action' => 'getstockinfo'
+																		)
+																)
+														),
 												)
 										),
 										'article' => array (
@@ -341,7 +353,8 @@ return array (
 				),
 				'strategies' => array (
 						'ViewJsonStrategy' 
-				) 
+				),
+				//'base_path' =>'http://localhost/workspace/testzend/public',
 		),
 		
 		// Placeholder for console routes

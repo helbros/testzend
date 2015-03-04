@@ -1,15 +1,42 @@
-<?php
-$form=$this->form;
-$form->prepare();
-$form->setAttribute('action', $this->url('news/auth/register'));
-echo $this->form()->openTag($form);
-echo $this->formRow($form->get('username')).'<br>';
-echo $this->formRow($form->get('password')).'<br>';
-echo $this->formRow($form->get('confirm_password')).'<br>';
-echo $this->formRow($form->get('email')).'<br>';
-echo $this->formRow($form->get('captcha')).'<br>';
-echo $this->formRow($form->get('submit')).'<br>';
-echo $this->formRow($form->get('csrf')).'<br>';
-echo $this->form()->closeTag($form);
-//echo print_r($data);
-?>
+<div class="row">
+	<div class="col-md-12">
+		<h1 class="text-center">Đăng ký thành viên</h1><br><br>		
+		<p class="quick-register text-center">			
+			<a href="<?=$link_login_fb ?>"><i class="fa fa-facebook"></i></a>
+	        <i class="fa fa-google-plus"></i>
+	        <i class="fa fa-twitter"></i>
+		</p><br><br>
+		<div class="register-block center-block border-well">  
+			<?php
+			$form = $this->form;
+			$form->prepare ();
+			$captcha = $form->get ( 'captcha' )->getCaptcha ();
+			$captcha->generate ();
+			$form->setAttribute ( 'action', $this->url ( 'news/auth/register' ) );
+			echo $this->form ()->openTag ( $form );
+			echo $this->formInput( $form->get ( 'username' ) ) . '<br>';
+			echo $this->formElementErrors($form->get ( 'username' ));
+			echo $this->formInput ( $form->get ( 'password' ) ) . '<br>';
+			echo $this->formElementErrors($form->get ( 'password' ));
+			echo $this->formInput ( $form->get ( 'confirm_password' ) ) . '<br>';
+			echo $this->formElementErrors($form->get ( 'confirm_password' ));
+			echo $this->formInput ( $form->get ( 'email' ) ) . '<br>';
+			echo $this->formElementErrors($form->get ( 'email' ));
+			?>
+			<label> <span>Mã xác nhận</span><br> <img
+				width="<?= $captcha->getWidth() ?>"
+				height="<?= $captcha->getHeight() ?>"
+				src="<?= $captcha->getImgUrl() . $captcha->getId() . $captcha->getSuffix(); ?>"
+				alt="<?= $captcha->getImgAlt() ?>"> <br> <input class="form-control"
+				type="text" name="<?= $captchaName ?>[input]"> <input type="hidden"
+				value="<?= $captcha->getId() ?>" name="<?= $captchaName ?>[id]">
+			</label> <br>
+			<?php
+			echo $this->formElementErrors($form->get ( 'captcha' ));
+			echo $this->formRow ( $form->get ( 'submit' ) ) . '<br>';
+			echo $this->formRow ( $form->get ( 'csrf' ) ) . '<br>';
+			echo $this->form ()->closeTag ( $form );			
+			?>			
+		</div>
+	</div>
+</div>

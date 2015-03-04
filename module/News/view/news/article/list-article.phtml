@@ -4,7 +4,7 @@
 	<?php foreach ($this->list_article as $art):?>
 		<a href="<?=$this->url('news/article/detail-article',array('id'=>$art->id)) ?>">
 				<li>
-					<span class="thumb"><img alt="" src="<?=$this->custom_helper()->getFirstLink($art->full_text) ?>"></span>
+					<span class="thumb-article-vertical"><img alt="" src="<?=$this->custom_helper()->getFirstLink($art->full_text) ?>"></span>
 					<span class="detail">
 						<p class="title-vertical"><?=$art->title?></p>
 						<p class="review"><?=$art->intro_text?></p>						

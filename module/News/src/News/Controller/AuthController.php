@@ -56,15 +56,18 @@ class AuthController extends AbstractActionController {
 				'action' => 'register' 
 		) );
 		$form = $register->form;
-		$form->bind ( $userx );
-		
+		$form->bind ( $userx );		
 		return array (
-				'form' => $form 
+				'form' => $form,				
 		);
 	}
-	function registerAction() {		
+	function registerAction() {	
+		$helper = new FacebookRedirectLoginHelper ( 'http://homestock.vn/testzend/public/news/auth/loginfb' );
+		$link_login_fb = $helper->getLoginUrl ();
+		
 		$request = $this->getRequest ();
 		$form = new RegisterForm ();
+		$form->get('submit')->setValue('Đăng ký');
 		$filter = new RegisterFilter ( $this->getServiceLocator ()->get ( 'Zend\Db\Adapter\Adapter' ) );
 		if ($request->isPost ()) {		
 			$form->setValidationGroup ( 'username', 'password', 'confirm_password', 'email', 'captcha' );							
@@ -76,11 +79,11 @@ class AuthController extends AbstractActionController {
 				$user = new User ();
 				$user->exchangeArray ( $form->getData () );
 				$this->getUserTable ()->insertUser ( $user );
-			} else
-				echo print_r ( $form->getMessages () );
+			} 				
 		}
 		return array (
-				'form' => $form 
+				'form' => $form,				
+				'link_login_fb'=>$link_login_fb 
 		);
 	}
 	function testAction() {
@@ -141,8 +144,7 @@ class AuthController extends AbstractActionController {
 						$messAuth .= $mess;
 					}
 				}
-			} else
-				echo 'wrong';
+			}				
 		}
 		/*
 		 * fsdfsdfdsf
@@ -150,7 +152,7 @@ class AuthController extends AbstractActionController {
 		
 		return array (
 				'form' => $form,
-				'messages' => $messAuth,
+				'messages' => $messAuth,			
 				'link_login_fb' => $link_login_fb 
 		);
 	}

@@ -56,26 +56,77 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
-<div class="row view-stock-panel">
-<div id="fb-root"></div>
-
-
-
-
-
-
-</div>
+<br>
 <div class="row">
 	<div class="col-md-9">
-		<h3>Tin tức</h3>
+	<div class="row view-stock-panel hidden">
+	<div class="col-md-12">
+<table class="table table-bordered text-center">
+	  <tr>
+	    <th>Trần</th>
+	    <th>Sàn</th>
+	    <th>TC</th>
+	    <th>Mã CK</th>
+	    <th class="id_stock">ACB</th>
+	    <th class="name_company" colspan="6">Cty ngân hàng ACB</th>
+	    <th width="37" rowspan="2">Giá khớp</th>
+	    <th width="37" rowspan="2">KL khớp</th>
+	    <th width="37"><button type="button" class="close close-view-stock-panel" aria-label="Close"><span aria-hidden="true">&times;</span></button></th>
+	  </tr>
+	  <tr>
+	    <td class="tran">14.3</td>
+	    <td class="san">12.5</td>
+	    <td class="thamchieu">13.4</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <th>Giá 3</th>
+	    <th>KL3</th>
+	    <th>Giá 2</th>
+	    <th>KL2</th>
+	    <th>Giá 1</th>
+	    <th>KL 1</th>
+	    <th width="37">+/-</th>
+	  </tr>
+	  <tr>
+	    <th>Mở cửa</th>
+	    <th>Cao nhất</th>
+	    <th>Thấp nhất</th>
+	    <th>NN mua</th>
+	    <th>Dư mua</th>
+	    <td class="du_mua_gia_3">12.7</td>
+	    <td class="du_mua_KL_3">310</td>
+	    <td class="du_mua_gia_2">12.8</td>
+	    <td class="du_mua_KL_2">100</td>
+	    <td class="du_mua_gia_1">12.9</td>
+	    <td class="du_mua_KL_1">98</td>
+	    <td class="gia_khop" rowspan="2">13</td>
+	    <td class="khoi_luong_khop"  rowspan="2">342</td>
+	    <td class="tang_giam"  rowspan="2">-0.4</td>
+	  </tr>
+	  <tr>
+	    <td class="mo_cua">1027</td>
+	    <td class="cao_nhat">13</td>
+	    <td class="thap_nhat">13.5</td>
+	    <td class="nn_mua">12.9</td>
+	    <th>Dư bán</th>
+	    <td class="du_ban_gia_3">13.6</td>
+	    <td class="du_ban_KL_3">300</td>
+	    <td class="du_ban_gia_2">13.5</td>
+	    <td class="du_ban_KL_2">94</td>
+	    <td class="du_ban_gia_1">13.4</td>
+	    <td class="du_ban_KL_1">99</td>
+	  </tr>
+	</table>
+	</div>
+	</div>
+		<h3>Thảo luận</h3>
 		<ul class="list-unstyled list-article ul-custom">
 	<?php foreach ($this->paginator as $art):?>
 		<a href="<?=$this->url('news/article/detail-article',array('id'=>$art->id)) ?>">
 				<li>
-					<p class="thumb">Thumbs</p>
+					<p class="thumb"><img alt="" src="<?=$this->custom_helper()->getFirstLink($art->full_text) ?>"></p>
 					<p class="title"><?=$art->title?></p>
-					<p class="review"><?=$art->intro_text?></p>
-					<p class="rate">Like</p>
+					<p class="review"><?=$this->custom_helper()->cutReadmore(strip_tags($art->intro_text),25)?></p>					
 			</li>
 			</a>
 		<?php endforeach;?>		
@@ -92,7 +143,69 @@ $(document).ready(function(){
 	</div>
 	</div>
 	<div class="col-md-3">
-	<div class="fb-like-box" data-href="https://www.facebook.com/homestock.vn" data-height="500" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
+	<div id="fb-root"></div>	
+		<script>
+			$(document).ready(function(){
+				$('.close-view-stock-panel').click(function(){
+						$('.view-stock-panel').addClass('hidden');
+					});
+				$('.view-stock-mini button').click(function(){
+					console.log($('.view-stock-mini select').val());
+						$.post(base_url+'/news/stock/getstockinfo/'+$('.view-stock-mini select').val(),								
+								function(data){
+									console.log(data);									
+									$('.id_stock').text(data.stock_info.name);
+									$('.name_company').text(data.stock_info.name_company);
+									$('.tran').text(data.stock_info.tran);
+									$('.san').text(data.stock_info.san);
+									$('.thamchieu').text(data.stock_info.thamchieu);
+									$('.du_mua_gia_3').text(data.stock_info.du_mua_gia_3);
+									$('.du_mua_KL_3').text(data.stock_info.du_mua_KL_3);
+									$('.du_mua_gia_2').text(data.stock_info.du_mua_gia_2);
+									$('.du_mua_KL_2').text(data.stock_info.du_mua_KL_2);
+									$('.du_mua_gia_1').text(data.stock_info.du_mua_gia_1);
+									$('.du_mua_KL_1').text(data.stock_info.du_mua_KL_1);									
+									$('.du_ban_gia_3').text(data.stock_info.du_ban_gia_3);
+									$('.du_ban_KL_3').text(data.stock_info.du_ban_KL_3);
+									$('.du_ban_gia_2').text(data.stock_info.du_ban_gia_2);
+									$('.du_ban_KL_2').text(data.stock_info.du_ban_KL_2);
+									$('.du_ban_gia_1').text(data.stock_info.du_ban_gia_1);
+									$('.du_ban_KL_1').text(data.stock_info.du_ban_KL_1);
+									$('.gia_khop').text(data.stock_info.gia_khop);
+									$('.khoi_luong_khop').text(data.stock_info.khoi_luong_khop);
+									$('.tang_giam').text(data.stock_info.tang_giam);
+									$('.mo_cua').text(data.stock_info.mo_cua);
+									$('.cao_nhat').text(data.stock_info.cao_nhat);
+									$('.thap_nhat').text(data.stock_info.thap_nhat);
+									$('.nn_mua').text(data.stock_info.nn_mua);
+
+									$('.view-stock-panel').removeClass('hidden');
+									$('.view-stock-panel').addClass('show');
+									}
+							);
+					});
+				});
+		</script>
+		<div class="view-stock-mini well-remix">
+			<div class="form-inline">			 
+			   		<select class="form-control" style="width:195px">
+							<option>HAG</option>
+							<option>BCI</option>
+							<option>FPT</option>
+					</select>
+				    <button class="btn btn-default">Xem</button>			   			 
+			</div>			
+		</div>
+		<div class="share-block">
+			<ul class="list-unstyled well-remix share-list">
+				<h5><strong>Like us : </strong><div class="fb-like" data-href="https://homestock.vn" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div></h5>				 
+				<h5> <strong>Share us : </strong></h5>				
+				<li><span class="fa fa-facebook fb-share-but"></span></li>
+                <li><span class="fa fa-google-plus google-share-but"></span></li>
+                <li><span class="fa fa-twitter"></span></li>
+			</ul>
+		</div>
+	<div class="fb-like-box" data-href="https://www.facebook.com/homestock.vn" data-height="400" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
 	</div>
 	
 </div>

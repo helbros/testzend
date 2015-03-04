@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<base href="<?php echo $this->basePath(); ?>" />
+<base href="<?php echo $this->basePath () ?>" />
 <meta charset="utf-8">
+<link rel="icon" type="image/ico" href="<?php echo $this->basePath () ?>/img/fav-hs-tran.ico">
 <?php echo $this->headTitle(); ?>
 
 <?php
@@ -35,7 +36,7 @@ echo $this->headScript ()->prependFile ( $this->basePath () . '/js/bootstrap.min
          var js, fjs = d.getElementsByTagName(s)[0];
          if (d.getElementById(id)) {return;}
          js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
+         js.src = "//connect.facebook.net/vi_VN/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
     </script>
@@ -59,21 +60,28 @@ echo $this->headScript ()->prependFile ( $this->basePath () . '/js/bootstrap.min
 						
 			</div>
 		</nav>
-		<nav class="visible-xs">Mini nav</nav>
-
+				
+<!-- MINI MENU -->
+	<ul class="nav nav-pills nav-stacked mini-menu visible-xs">		
+ 		<li role="presentation"><a href="#">HOME</a></li>
+ 		<li role="presentation"><a href="#">PHÂN TÍCH</a></li>
+ 		<li role="presentation"><a href="#">NHẬN ĐỊNH</a></li>
+ 		<li role="presentation"><a href="#">KINH NGHIỆM</a></li>
+ 		<li role="presentation"><a href="#">ABOUT US</a></li>
+	</ul>
 
 
 
 
 		<br>
 		<div class="row"></div>
-		<div class="row"><?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumb.phtml');?></div>
-		<div class="row">
+		<div class="row"><?php //echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumb.phtml');?></div>
+		<div class="row layout-main-content">
 			<div class="col-md-12"><?php echo $this->content;?></div>
 		</div>
 	</div>
 
-	<!-- test loader -->
+	<!-- TEST LOADER SPIN -->
 	<div id="loader" style="display: none">
 		<div class="spinner">
 			<div class="spinner-container container1">
@@ -96,6 +104,8 @@ echo $this->headScript ()->prependFile ( $this->basePath () . '/js/bootstrap.min
 			</div>
 		</div>
 	</div>
+	
+	
 	<!-- Modal -->
 	<script>
 $(document).on('click','#login-pop-up-frontend',function(){
@@ -148,6 +158,7 @@ $(document).on('click','#login-pop-up-frontend',function(){
 					<span class="anounce-login"></span>
 				</div>
 				<div class="modal-footer">
+				
 					<button type="button" class="btn btn-default"
 						id="login-pop-up-frontend">Đăng nhập</button>
 					<a href="<?= $this->basePath().'/news/auth/register' ?>"
@@ -160,7 +171,7 @@ $(document).on('click','#login-pop-up-frontend',function(){
 		<div class="container container-custom">
 			<div class="row top-footer">
 				<div class="col-md-3">
-					<img class="logo-btm" alt="" src="public/img/slogan4home.png">
+					<img class="logo-btm img-responsive" alt="" src="public/img/slogan4home.png">
 					<p class="sign">Tyche Developer's</p>
 				</div>
 				<div class="col-md-3">

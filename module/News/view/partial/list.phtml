@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col-md-12">
+		<h3>Tin tức</h3>
+		<ul class="list-unstyled list-article ul-custom">
+	<?php foreach ($this->paginator as $art):?>
+		<a href="<?=$this->url('news/article/detail-article',array('id'=>$art->id)) ?>">
+				<li>
+					<p class="thumb">Thumbs</p>
+					<p class="title"><?=$art->title?></p>
+					<p class="review"><?=$this->custom_helper()->cutReadmore(strip_tags($art->intro_text),25)?></p>					
+			</li>
+			</a>
+		<?php endforeach;?>		
+	</ul>
+	
+	<div class="row"><?php
+	
+	echo $this->paginationControl ( $this->paginator, 'sliding', array (
+			'partial/paginator.phtml',
+			'News' 
+	), array (
+			'route' => 'news/manager/paginator' 
+	) )?>
+	</div>
+	</div>		
+</div>

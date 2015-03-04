@@ -15,16 +15,14 @@ class ArticleController extends AbstractActionController {
 	protected $articleTable;
 	protected $cateArticleTable;
 	function testAction() {
-		$id = 34;
-		$article = $this->getArticleTable ()->getArticle ( $id );
-		foreach ($article as $val){
-			echo $val->title."<br>";
-			
-			echo $val->cate_article_id;
+		$text='nguyen thanh tuan nguoi hung cua the ky';
+		$s=explode(' ', $text);
+		$limit=4;
+		$result='';
+		for ($x=0;$x<=$limit;$x++){
+			$result.=$s[$x].' ';
 		}
-		
-		echo print_r($article);
-		
+		echo $result;
 	}
 	function getArticleTable() {
 		$this->articleTable = $this->getServiceLocator ()->get ( 'News\Model\ArticleTable' );

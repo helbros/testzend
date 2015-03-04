@@ -37,12 +37,12 @@ class ManagerController extends AbstractActionController {
 		return $view;
 	}
 	function homeAction() {				
-		$this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('my title');					
+		$this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Đầu tư tương lai');					
 		$select=new Select('article');
 		$adapterPaginator=new DbSelect($select, $this->getDbAdapter());
 		$paginator=new Paginator($adapterPaginator);
 		$paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
-		$paginator->setItemCountPerPage(4);
+		$paginator->setItemCountPerPage(8);
 
 		$view_chatbox=new ViewModel();
 		$view_chatbox->setTemplate('view_chat');

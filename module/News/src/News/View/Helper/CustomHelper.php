@@ -11,7 +11,22 @@ class CustomHelper extends AbstractHelper {
 		} else
 			return null;
 	}
-	function getCate($id){
-		
+	function getCate($id) {
+	}
+	function cutReadmore($text, $limit) {
+		$s = explode ( ' ', $text );
+		$count = 0;
+		$result = '';
+		for($count; $count <= $limit; $count ++) {
+			$result .= $s [$count] . ' ';
+		}
+		return $result;
+	}
+	function baseUrl() {
+		$uri = $this->getRequest ()->getUri ();
+		$scheme = $uri->getScheme ();
+		$host = $uri->getHost ();
+		$base = sprintf ( '%s://%s', $scheme, $host );
+		return $base_url = $uri->getScheme () . '://' . $uri->getHost () . $uri->getPath ();
 	}
 }

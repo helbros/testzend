@@ -16,7 +16,8 @@ class RegisterForm extends Form {
 				'attributes'=>array(
 						'type' => 'text',
 						'class'=>'form-control',
-						'required'=>'required'						
+						'required'=>'required',
+						'placeHolder'=>'Tên truy cập'						
 				),
 				'options'=>array(
 						'label'=>'Username'
@@ -27,7 +28,8 @@ class RegisterForm extends Form {
 				'attributes'=>array(
 						'type' => 'password',
 						'class'=>'form-control',
-						'required'=>'required'
+						'required'=>'required',
+						'placeHolder'=>'Mật khẩu'
 				),
 				'options'=>array(
 						'label'=>'Password'
@@ -38,7 +40,8 @@ class RegisterForm extends Form {
 				'attributes'=>array(
 						'type' => 'password',
 						'class'=>'form-control',
-						'required'=>'required'
+						'required'=>'required',
+						'placeHolder'=>'Xác nhận mật khẩu'
 				),
 				'options'=>array(
 						'label'=>'Confirn Password'
@@ -48,7 +51,8 @@ class RegisterForm extends Form {
 				'name'=>'email',
 				'attributes'=>array(
 						'class'=>'form-control',
-						'required'=>'required'
+						'required'=>'required',
+						'placeHolder'=>'Email'
 				),
 				'options'=>array(
 						'label'=>'Email'
@@ -74,8 +78,8 @@ class RegisterForm extends Form {
 		
 		$capt_image=new \Zend\Captcha\Image(array(
 				'font' => './data/font/ARIAL.TTF',
-				'width' => 250,
-				'height' => 100,
+				'width' => 150,
+				'height' => 70,
 				'dotNoiseLevel' => 40,
 				'lineNoiseLevel' => 3
 		));
@@ -83,13 +87,12 @@ class RegisterForm extends Form {
 		//getRequest()->getUri();
 		//$uri = \Zend\Uri\UriFactory::factory();				
 		//$capt_image->setImgUrl($uri->getScheme().'://'.$uri->getHost().$uri->getPath().'data/captcha');
-		$capt_image->setImgUrl('data/captcha');
-		
+		$capt_image->setImgUrl('data/captcha');		
 		$this->add(array(
 				'name'=>'captcha',
 				'type'=>'Zend\Form\Element\Captcha',
 				'options' => array(
-						'label' => 'Please verify you are human',
+						'label' => 'Mã xác nhận',
 						'captcha' => $capt_image,
 				),
 		));

@@ -4,6 +4,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Dom\Query;
 use Zend\View\Model\JsonModel;
+use Zend\Http\Headers;
+use Zend\Http\Response;
 class StockController extends AbstractActionController {
 	function indexAction() {
 		$ch=curl_init();
@@ -24,18 +26,29 @@ class StockController extends AbstractActionController {
 		));	
 	}
 	function getstockinfoAction(){
+		//header('Content-Type: text/html; charset=utf-8');		
+         
 		$stock_name=strtoupper($this->params()->fromRoute('stockname'));
 		$stock_name? :die();	
 		$ch=curl_init();
 		curl_setopt($ch, CURLOPT_URL, 'http://priceboard.fpts.com.vn/ho4/VN/get.asp?a=1');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$hose_temp=curl_exec($ch);
-		$hose=new Query($hose_temp);
-		$hose->setEncoding('utf-8');
+		$hose_temp=curl_exec($ch);		
+		$hose=new Query();
+		$hose->setDocumentHtml('<?xml encoding="UTF-8">'.$hose_temp);				
 		$results = $hose->execute("#tr$stock_name td");
-		//$res=$hose->queryXpath('/html/body/table[4]/tr[3]/td');		
+		//$res=$hose->queryXpath('/html/body/table[4]/tr[3]/td');	
+
+		$name_company_query=$hose->execute("#tr$stock_name");
+		$name_company='';
+		foreach ($name_company_query as $val){
+			$name_company=$val->getAttributeNode('title')->nodeValue;
+			//echo $val->textContent.'<br>';		
+		}				
+		//echo $name_company;
+		
 		$stock=new \stdClass();
-		$stock->name='3';
+		$stock->name='3';		
 		$stock->tran='';
 		$stock->san='';
 		$stock->tham_chieu='';			
@@ -73,6 +86,7 @@ class StockController extends AbstractActionController {
 			$stock->{$key}=$temp_arr[$count];
 			$count++;
 		}
+		$stock->name_company=$name_company;
 		/* echo '<br>';		
 		echo print_r($stock);
 		echo '<br>';
@@ -81,20 +95,38 @@ class StockController extends AbstractActionController {
 		echo print_r($temp_arr); */
 		return new JsonModel(array('stock_info'=>$stock));
 	}
-	function viewstockAction(){
+	function viewstockAction(){		
 		//http://ajax.vietstock.vn/GetChart.ashx
 		$stock_name=strtoupper($this->params()->fromRoute('stockname'));
 		$stock_name? :die();
+		
 		$ch=curl_init();
 		curl_setopt($ch, CURLOPT_URL, 'http://priceboard.fpts.com.vn/ho4/VN/get.asp?a=1');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		$hose_temp=curl_exec($ch);
-		$hose=new Query($hose_temp);
-		$hose->setEncoding('utf-8');
-		$results = $hose->execute("#tr$stock_name td");
+						
+		$hose=new Query();
+		$hose->setDocumentHtml('<?xml encoding="UTF-8">'.$hose_temp);
+		//$hose->setEncoding('utf-8');		
+		$results = $hose->execute("#tr$stock_name td");	
+			
+	
+		$name_company_query=$hose->execute("#tr$stock_name");
+		$name_company='';
+		foreach ($name_company_query as $val){
+			$name_company=$val->getAttributeNode('title')->nodeValue;
+			//echo $val->textContent.'<br>';
+		}
+		echo $name_company;
+		
+		
+		
+		
+		
+		
 		//$res=$hose->queryXpath('/html/body/table[4]/tr[3]/td');
 		$stock=new \stdClass();
-		$stock->name='3';
+		$stock->name='3';		
 		$stock->tran='';
 		$stock->san='';
 		$stock->tham_chieu='';

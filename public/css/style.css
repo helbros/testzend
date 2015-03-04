@@ -19,7 +19,7 @@ body {
   }
 }
 .ul-custom{
-	margin-top: 50px;
+	margin-top: 20px;
 	/* padding: 15px; */
 }
 .navbar{
@@ -28,9 +28,19 @@ body {
 .border-well{
 	box-shadow: 0px 0px 2px #aaa;
 }
+.well-remix{
+	box-shadow: 0px 0px 2px #aaa;
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: 20px;	
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	//box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
 
 /* ---------------main menu ------------------- */
-.main-menu{
+.main-menu li a{
+	height: 56px;
     
 }
 .main-menu li{
@@ -51,7 +61,11 @@ body {
 }
 .chat-header{
 	background: #DFDFDF;
-	height:50px;
+	height:40px;
+}
+.chat-header span{
+	margin-top: auto;
+	margin-bottom: auto;
 }
 .chat-content{
 	height: 286px;
@@ -75,6 +89,18 @@ body {
 .table-message tr td{
 	 word-wrap: break-word;       /* Internet Explorer 5.5+, Chrome, Firefox 3+ */
     overflow-wrap: break-word;   /* CSS3 standard: Chrome & Opera 2013+ */
+}
+
+/* --------MINI MENU------------- */
+.mini-menu{
+	position: absolute;
+	top:0;
+	left: 0;
+}
+
+/* --------LAYOUT MAIN CONTENT------------- */
+.layout-main-content{
+	min-height: 750px;
 }
 
 
@@ -112,14 +138,16 @@ body {
 .list-article-vertical li:hover{
 	
 }
-.thumb{
+.thumb-article-vertical{
 	width:230px;
 	height:129px;
 	background: #DFDFDF;
 }
-.thumb img{
+.thumb-article-vertical img{
 	width: 230px;
-	height: 129px;
+	height: 129px;	
+	float: left;
+	margin-right: 15px;
 }
 .detail{
 	/* display: block; */
@@ -148,7 +176,7 @@ body {
 }
 .list-article li{
 	vertical-align:top;
-	width:230px;
+	width:218px;
 	margin:0 15px 15px 0;
 	
 	display:inline-block;
@@ -159,11 +187,14 @@ body {
 	box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.71);
 }
 .thumb{
-	width:230px;
-	height:129px;
+		
+}
+.thumb img{
+	width:218px;
+	height:117px;
 	background: #DFDFDF;
 	float: left;
-	margin-right: 15px;
+	margin-bottom: 5px;
 }
 .title{
 	font-weight: bolder;
@@ -244,6 +275,19 @@ body {
 /*----------------REGISTER FORM----------*/
 .glyphicon-mix {
 top: 0px !important;
+}
+.register-block{
+	width: 400px;
+	padding: 15px;
+}
+.quick-register i{
+	display: inline-block;
+	border: 1px solid #ccc;
+	margin-right:15px;
+	padding: 9px;
+	height: 49px;
+	width: 49px;
+	font-size: 30px;		
 }
 
 
