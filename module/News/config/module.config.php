@@ -140,7 +140,49 @@ return array (
 																				'action' => 'postchat' 
 																		) 
 																) 
-														) 
+														),
+														'clearall' => array (
+																'type' => 'Literal',
+																'options' => array (
+																		'route' => '/clearall',
+																		'defaults' => array (
+																				'action' => 'clearall'
+																		)
+																)
+														),
+														'banchat' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/banchat[/:id]',
+																		'constrains'=>array(
+																			'id'=>'[0-9]+'	
+																		),
+																		'defaults' => array (
+																				'action' => 'banchat'
+																		)
+																)
+														),
+														'unbanchat' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/unbanchat[/:id]',
+																		'constrains'=>array(
+																				'id'=>'[0-9]+'
+																		),
+																		'defaults' => array (
+																				'action' => 'unbanchat'
+																		)
+																)
+														),
+														'manager' => array (
+																'type' => 'Literal',
+																'options' => array (
+																		'route' => '/manager',																		
+																		'defaults' => array (
+																				'action' => 'manager'
+																		)
+																)
+														)
 												) 
 										),
 										'stock' => array (
@@ -195,7 +237,7 @@ return array (
 										'article' => array (
 												'type' => 'Literal',
 												'options' => array (
-														'route' => '/article',
+														'route' => '/article',														
 														'defaults' => array (
 																'controller' => 'News\Controller\article',
 																'action' => 'index'
@@ -203,6 +245,19 @@ return array (
 												),
 												'may_terminate' => true,
 												'child_routes' => array (
+														'index' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/index[/cate/:cate][/page/:page]',
+																		'constrains'=>array(
+																				'cate'=>'[0-9]+',
+																				'page'=>'[0-9]+'
+																		),
+																		'defaults' => array (
+																				'action' => 'index'
+																		)
+																)
+														),
 														'detail-article' => array (
 																'type' => 'segment',
 																'options' => array (
@@ -237,12 +292,84 @@ return array (
 																		)
 																)
 														),
+														'edit-cate-article' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/edit-cate-article[/:id]',
+																		'constrains'=>array(
+																				'id'=>'[0-9]+',																				
+																		),
+																		'defaults' => array (
+																				'action' => 'editCateArticle'
+																		)
+																)
+														),
+														'delete-cate-article' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/delete-cate-article[/:id]',
+																		'constrains'=>array(
+																				'id'=>'[0-9]+',
+																		),
+																		'defaults' => array (
+																				'action' => 'deleteCateArticle'
+																		)
+																)
+														),
 														'add-article' => array (
 																'type' => 'Literal',
 																'options' => array (
 																		'route' => '/add-article',
 																		'defaults' => array (
 																				'action' => 'addArticle'
+																		)
+																)
+														),
+														'delete-article' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/delete-article[/:id]',
+																		'constrains'=>array(
+																				'id'=>'[0-9]+',																				
+																		),
+																		'defaults' => array (
+																				'action' => 'deleteArticle'
+																		)
+																)
+														),
+														'edit-article' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/edit-article[/:id]',
+																		'constrains'=>array(
+																				'id'=>'[0-9]+',
+																		),
+																		'defaults' => array (
+																				'action' => 'editArticle'
+																		)
+																)
+														),
+														'publish-article' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/publish-article[/:id]',
+																		'constrains'=>array(
+																				'id'=>'[0-9]+',
+																		),
+																		'defaults' => array (
+																				'action' => 'publishArticle'
+																		)
+																)
+														),
+														'featured-article' => array (
+																'type' => 'segment',
+																'options' => array (
+																		'route' => '/featured-article[/:id]',
+																		'constrains'=>array(
+																				'id'=>'[0-9]+',
+																		),
+																		'defaults' => array (
+																				'action' => 'featuredArticle'
 																		)
 																)
 														),
@@ -273,11 +400,16 @@ return array (
 						'Zend\Log\LoggerAbstractServiceFactory' 
 				),
 				'aliases' => array (
-						'translator' => 'MvcTranslator' 
+						'translator' => 'MvcTranslator',
+						'Zend\Authentication\AuthenticationService' => 'my_auth_service',
+				),
+				'invokables' => array(
+						'my_auth_service' => 'Zend\Authentication\AuthenticationService',
 				),
 				'factories' => array (
 						'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory' 
-				) 
+				),				
+				
 		),
 		'navigation' => array (
 				'default' => array (
@@ -331,7 +463,8 @@ return array (
 						'News\Controller\Auth' => 'News\Controller\AuthController',
 						'News\Controller\Chat' => 'News\Controller\ChatController', 
 						'News\Controller\Stock' => 'News\Controller\StockController',
-						'News\Controller\Article' => 'News\Controller\ArticleController'
+						'News\Controller\Article' => 'News\Controller\ArticleController',
+						'News\Controller\Admin' => 'News\Controller\AdminController'
 				) 
 		),
 		'view_manager' => array (

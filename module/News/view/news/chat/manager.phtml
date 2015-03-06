@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="col-md-2">
+		<div class="list-group">
+			<a href="<?=$this->url('news/chat/manager') ?>" class="list-group-item">Quản lý
+				Chat </a> 
+			<a href="<?=$this->url('news/chat/banchat') ?>"
+				class="list-group-item">Ban nick</a>
+
+
+		</div>
+	</div>
+	<div class="col-md-10">
+		<form>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Date Time</th>
+						<th>User</th>
+						<th>Message</th>
+						<th>Tool</th>
+					</tr>
+				</thead>
+				<tbody>
+			<?php foreach ($chat as $val):?>
+				<tr>
+						<td><?=$val->id ?></td>
+						<td><?=$val->date_time ?></td>
+						<td><?=$val->username ?></td>
+						<td><?=$val->message ?></td>
+						<td><input type="checkbox" id="checkall"></td>
+					</tr>
+				<?php endforeach;?>				
+			</tbody>
+			</table>
+			<button type="submit" class="btn btn-default">Xóa</button>
+			<a href="<?$this->url('news/chat/clearall') ?>" class="btn btn-default">Xóa hết</a>
+		</form>
+	</div>
+</div>

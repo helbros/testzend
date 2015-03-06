@@ -159,7 +159,7 @@ class AuthController extends AbstractActionController {
 	function logoutAction() {
 		$auth = new AuthenticationService ();
 		$auth->clearIdentity ();
-		$this->redirect ()->toRoute ( 'news/manager' );
+		$this->redirect ()->toRoute ( 'news/manager/home' );
 	}
 	function checkAuthAction() {
 		$auth = new AuthenticationService ();
@@ -168,10 +168,17 @@ class AuthController extends AbstractActionController {
 				'field' => 'username',
 				'adapter' => $this->getServiceLocator ()->get ( 'Zend\Db\Adapter\Adapter' ) 
 		) );
-		$result_band = ($validator_band->isValid ( $auth->getIdentity ()->username )) ? true : false;
+		if ($auth->getIdentity()) {
+			$checkAuth=true;
+			$checkBan = ($validator_band->isValid ( $auth->getIdentity ()->username )) ? true : false;
+		}else {
+			$checkAuth=false;
+			$checkBan=false;
+		}
+		
 		return new JsonModel ( array (
-				'checkAuth' => $auth->getIdentity () ? true : false,
-				'band' => $this->getServiceLocator ()->get ( 'checkAuthBand' ) 
+				'checkAuth' => $checkAuth,
+				'checkBan' => $checkBan
 		)
 		 );
 	}
@@ -189,8 +196,14 @@ class AuthController extends AbstractActionController {
 		$authAdapter->setIdentity($username);
 		$authAdapter->setCredential($final_password);
 		$result_auth=$auth->authenticate($authAdapter);
+		$auth->getStorage ()->write ( $authAdapter->getResultRowObject ( array (
+				'id',
+				'username',
+				'title_user'
+		) ) );
 		if ($result_auth->isValid()) {
 			$logined_frontend_status=true;
+			$this->redirect()->toRoute('news/manager/home');
 		}else $logined_frontend_status=false;
 		return new JsonModel(array('logined_frontend_status'=>$logined_frontend_status)); 
 	}

@@ -14,7 +14,10 @@ class ArticleForm extends Form {
 						'class' => 'form-control' 
 				),
 				'options' => array (
-						'label' => 'Danh mục' 
+						'label' => 'Danh mục',
+						'value_options'=>array(
+								'0'=>'Chọn danh mục :'
+						)
 				) 
 		) );
 		$this->add ( array (

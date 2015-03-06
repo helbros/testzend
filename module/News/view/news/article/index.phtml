@@ -1,0 +1,108 @@
+<?php 
+$form=$this->form;
+$form->prepare();
+$form->get('cate_article_id')->setAttribute('onchange', 'dotarget_manager(this.value)');
+?>
+<script type="text/javascript">
+	function dotarget_manager(value){				
+		document.forms["managerform"].action=base_url+'/news/article/index/cate/'+value;
+		document.forms["managerform"].submit();	
+	}	
+	$(function () {
+	  $('[data-toggle="tooltip"]').tooltip();
+	  $('[name="cate_article_id"] option[value="'+get_cate_value_from_url(window.location.href)+'"]').attr('selected','selected');
+	})
+	function get_cate_value_from_url(url){		
+		var arr=url.split('/');
+		var cate_value;
+		for(var x in arr){			
+			if(arr[x]=='cate') cate_value=arr[parseInt(x)+1];
+		}
+		return cate_value;
+	}		
+</script>
+<form name="managerform" action="" method="post">
+	<div class="row">		
+	<div class="col-md-2">
+	<div class="list-group">
+		  <a href="index.php/admin/cms/article" class="list-group-item">Quản lý tin tức </a>
+			  <a href="index.php/admin/cms/add_article" class="list-group-item">Thêm tin tức</a>		  
+		  
+		</div>
+	</div>
+	<div class="col-md-10">	
+		<div class="row">					
+			<div class="col-md-4">  			
+			<div class="input-group input-group-edit">							
+				 <?php echo $this->formRow($form->get('cate_article_id'));?>					
+				<?//= form_dropdown('book-cate',$cate_article_list,$remember_chose,'id="book-cate" class="form-control" onchange="dotarget_manager(this.value)"')?>			
+			</div>
+		
+			</div>
+			<div class="col-md-8"> 
+			<div class="pull-right">
+		  	<div class="btn-group">
+		  	<a class="btn btn-default" href="<?=$this->url('news/article/add-article') ?>">Thêm bài viết</a>  			  	
+		  	<button type="submit" class="btn btn-default" name="delete-book" value="delete-book">Xóa</button>
+		  					  	
+		  </div>    
+		</div>
+			</div>
+		</div>
+
+<table class="table table-bordered table-center">   
+<thead>
+        <tr>
+       		<th class="text-center">ID</th>
+        	<th class="text-center">Danh Mục</th>            
+            <th class="text-center">Tên bài viết</th>                                             
+            <th class="text-center">Người tạo</th>
+            <th class="text-center">Ngày tạo</th>
+            <th class="text-center">Công cụ</th>                                    
+            <th class="text-center">Xem</th>            
+            <th class="text-center"><input type="checkbox" id="checkall"></th>
+        </tr>
+    </thead>
+        <tbody class="tbody">
+       	<?php foreach ($this->article as $i=>$article){?>
+       	<tr>
+       		<td><?= $i+1 ?></td>
+       		<td><?= $article->cate_article_id; ?></td>
+       		<td style="text-align: left !important;"><?= $article->title; ?></td>       		       		       	
+       		<td><?= $article->created_by; ?></td>
+       		<td><?= $article->created; ?></td>
+       		<td>
+       			<div class="btn-group btn-group-sm" role="group" aria-label="...">
+       				<?php if ($article->publish==true):?>
+       					<a  href='<?=$this->url('news/article/publish-article')."/".$article->id ?>' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Không đăng'><i class='fa fa-eye-slash'></i></a>
+       				<?php else :?>
+       					<a href='<?=$this->url('news/article/publish-article')."/".$article->id ?>' class='btn btn-default'  data-toggle='tooltip' data-placement='top' title='Đăng'><i class='fa fa-eye'></i></a>	
+       				<?php endif;?>	  				
+	  				
+	  				<?php if ($article->featured==true): ?>
+	  					<a href='<?=$this->url('news/article/featured-article')."/".$article->id ?>' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='Gỡ tin hot' ><i class='fa fa-star-o'></i></a>
+	  				<?php else :?>
+	  					<a href='<?=$this->url('news/article/featured-article')."/".$article->id ?>' class='btn btn-default'  data-toggle='tooltip' data-placement='top' title='Đặt tin hot'><i class='fa fa-star'></i></a>	
+	  				<?php endif;?>
+	 					 					 				
+	 				 <a href='<?=$this->url('news/article/edit-article')."/".$article->id ?>' class="btn btn-default"  data-toggle='tooltip' data-placement='top' title='Sửa bài viết'><i class="fa fa-pencil-square-o"></i></a>
+	 				 <a href='<?=$this->url('news/article/delete-article')."/".$article->id ?>' class="btn btn-default" data-toggle='tooltip' data-placement='top' title='Xóa bài viết' > <i class="fa fa-times"></i></a>
+	 				
+				</div>
+			</td>       		       		
+       		<td><?= $article->hits; ?></td>       		
+       		<td class="text-center"><input class="checkbox-mix" type="checkbox" value="<?=$article->id?>" name="checkbox[]"></td>	
+       	</tr>
+       	<?php }?>
+        </tbody>
+        <tfoot>
+        	<tr>
+        		<td colspan="9" class="text-center">
+        			<?php echo $this->paginationControl($this->article,'sliding','partial/paginator.phtml',array('route'=>'news/article/index'))?>
+        		</td>
+        	</tr>
+        </tfoot>
+</table>		
+</div>
+</div>
+</form>

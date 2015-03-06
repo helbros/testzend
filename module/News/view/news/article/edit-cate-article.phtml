@@ -1,9 +1,11 @@
 <?php 
 $form=$this->form;
 $form->prepare();
-$form->setAttribute('action', $this->url('news/article/add-cate-article'));
+//$form->setAttribute('action', $this->url('news/article/edit-cate-article'));
+$form->get('title')->setValue($cate->title);
+$form->get('alias')->setValue($cate->alias);
 ?>
-<div class="row-fluid">		
+<div class="row">		
 	<div class="col-md-2">
 		<div class="list-group">
 		  <a href="index.php/admin/cms/categories" class="list-group-item">Quản lý danh mục </a>
@@ -40,37 +42,7 @@ $form->setAttribute('action', $this->url('news/article/add-cate-article'));
 			
 			</div>				
 		</div>
-		<?php echo $this->form()->closeTag($form);?>
-		<div class="row">
-		<table class="table">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Tên</th>
-						<th>Alias</th>
-						<th>Path</th>
-						<th>Tool</th>
-					</tr>
-				</thead>
-				<tbody>
-			<?php foreach ($cate as $cate):?>
-				<tr>
-						<td><?=$cate->id ?></td>
-						<td><?=$this->custom_helper()->add_prefixCate($cate->path).$cate->title ?></td>
-						<td><?=$cate->alias ?></td>
-						<td><?=$cate->path ?></td>						
-						<td>
-						<div class="btn-group btn-group-sm" role="group" aria-label="...">
-						<a href='<?=$this->url('news/article/edit-cate-article')."/".$cate->id ?>' class="btn btn-default"  data-toggle='tooltip' data-placement='top' title='Sửa danh mục'><i class="fa fa-pencil-square-o"></i></a> 
-						<a href='<?=$this->url('news/article/delete-cate-article')."/".$cate->id ?>' class="btn btn-default" data-toggle='tooltip' data-placement='top' title='Xóa danh mục' > <i class="fa fa-times"></i></a>
-						</div>
-						</td>
-					</tr>
-				<?php endforeach;?>				
-			</tbody>
-			</table>
-		</div>
-					
+		<?php echo $this->form()->closeTag($form);?>			
 	</div>
 </div>
 

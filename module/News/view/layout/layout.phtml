@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<base href="<?php echo $this->basePath () ?>" />
+<base href="<?php echo $this->basePath () ?>">
 <meta charset="utf-8">
 <link rel="icon" type="image/ico" href="<?php echo $this->basePath () ?>/img/fav-hs-tran.ico">
 <?php echo $this->headTitle(); ?>
@@ -16,7 +16,12 @@ echo $this->headLink ()
 <!-- Scripts -->
         <?php
 								
-echo $this->headScript ()->prependFile ( $this->basePath () . '/js/bootstrap.min.js' )->prependFile ( $this->basePath () . '/js/jquery.min.js' )->appendFile ( $this->basePath () . '/js/jquery.jcarousel.min.js' )->appendFile ( $this->basePath () . '/js/temp.js' )->appendFile ( $this->basePath () . '/plugin/tinymce/tinymce.min.js' );
+echo $this->headScript ()->prependFile ( $this->basePath () . '/js/bootstrap.min.js' )
+->prependFile ( $this->basePath () . '/js/jquery.min.js' )
+->appendFile ( $this->basePath () . '/js/jquery.jcarousel.min.js' )
+->appendFile ( $this->basePath () . '/js/temp.js' )
+->appendFile ( $this->basePath () . '/js/list-company.js' )
+->appendFile ( $this->basePath () . '/plugin/tinymce/tinymce.min.js' );
 
 								
 								?>
@@ -45,13 +50,20 @@ echo $this->headScript ()->prependFile ( $this->basePath () . '/js/bootstrap.min
 		<nav class="navbar navbar-default navbar-fixed-top hidden-xs">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#"> <img class="img-responsive"
+					<a class="navbar-brand navbar-brand-remix" href="#"> 
+					<h3 style="color: #428bca;font-weight: bold;">HOMESTOCK Reborn</h3>
+					<!-- <img class="img-responsive"
 						alt="Brand"
-						src="<?php //echo $this->basePath('img/mini-hs.jpg')?>">
+						src="<?php //echo $this->basePath('img/quanlydautu-logo-mix.png')?>"> -->
 					</a>
 				</div>
-				<ul class="list-unstyled nav navbar-nav pull-right main-menu">
-					<li class="login"><a href="">Đăng nhập</a></li>
+				<ul class="list-unstyled nav navbar-nav pull-right main-menu panel-user">
+				<?php if ($user=$this->identity()):?>
+					<li class='login'><a href=''><?= $user->username ?></a></li>
+					<li class="logout"><a href="<?=$this->url('news/auth/logout')?>"><i class="fa fa-sign-out"></i></a></li>
+				<?php else: ?>
+					<li class='login'><a href=''>Đăng nhập</a></li>
+				<?php endif;?>										
 				</ul>
 				<?php
 				echo $this->navigation ( 'navigation' )->menu ()->setUlClass ( 'nav navbar-nav test pull-right main-menu' );
@@ -119,7 +131,8 @@ $(document).on('click','#login-pop-up-frontend',function(){
 				if(data.logined_frontend_status==false){
 					$('.anounce-login').text('Tên đăng nhập hoặc mật khẩu không đúng').css('color','red');
 				}else{
-					$('.anounce-login').text('Đăng nhập thành công').css('color','green');;					
+					$('.anounce-login').text('Đăng nhập thành công').css('color','green');;
+					window.location=base_url+"/news/manager/home";					
 				}												
 			});
 			

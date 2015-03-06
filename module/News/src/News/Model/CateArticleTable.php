@@ -16,6 +16,18 @@ class CateArticleTable {
 		);
 		$this->tableGateway->insert($data);
 	}
+	function update(CateArticle $set,$where){
+		$data=array(
+				'parent_id'=>$set->parent_id,				
+				'title'=>$set->title,
+				'alias'=>$set->alias,	
+				'path'=>$this->createPathCate($set->parent_id)
+		);
+		return $this->tableGateway->update($data,$where);
+	}
+	function delete($id_cate){
+		return $this->tableGateway->delete(array('id'=>$id_cate));
+	}
 	function createPathCate($cate_id){
 		$res=$this->getWhere($cate_id);
 		$num_row=$this->fetchAll()->count();

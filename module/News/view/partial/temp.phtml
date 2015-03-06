@@ -4,7 +4,7 @@
              <!-- Previous page link -->
              <?php if (isset($this->previous)): ?>
                  <li>
-                     <a href="<?php echo $this->url($this->route,array('page'=>$this->previous),null,true); ?>">
+                     <a href="<?php echo $this->url($this->route,array('page'=>$this->previous)); ?>">
                         << 
                      </a>
                  </li>
@@ -20,7 +20,7 @@
              <?php foreach ($this->pagesInRange as $page): ?>
                  <?php if ($page != $this->current): ?>
                      <li>
-                         <a href="<?php echo $this->url($this->route,array('page'=> $page),null,true); ?>">
+                         <a href="<?php echo $this->url($this->route,array('page'=> $page),FALSE, TRUE); ?>">
                              <?php echo $page; ?>
                          </a>
                      </li>
@@ -34,7 +34,7 @@
              <!-- Next page link -->
              <?php if (isset($this->next)): ?>
                  <li>
-                     <a href="<?php echo $this->url($this->route,array('page'=> $this->next),null,true); ?>">
+                     <a href="<?php echo $this->url($this->route,array('page'=> $this->next)); ?>">
                          >>
                      </a>
                  </li>

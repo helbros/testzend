@@ -9,7 +9,7 @@ body {
 }
 
 
-/* ---------------custom bootstrap ------------------- */
+/* ---------------CUSTOM BOOSTRAP ------------------- */
 .container-custom{
 	/* width: 1300px !important; */
 }
@@ -38,7 +38,7 @@ body {
 	//box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
-/* ---------------main menu ------------------- */
+/* ---------------MAIN MENU ------------------- */
 .main-menu li a{
 	height: 56px;
     
@@ -55,6 +55,20 @@ body {
 .main-menu li:hover ul{
 	visibility: visible;
 }
+
+/* ---------------LOGO LEFT-CORNOR ------------------- */
+.logo{
+	height: 40px;
+	width: 130px;
+	/* padding: 14px; */
+	margin-top: 9px;
+	margin-left: 10px;
+}
+.navbar-brand-remix{
+	padding: 0!important;
+}
+
+
 /*------CHAT BOX---------*/
 .chat-box{
 	border: 1px solid #d2d6d5;
@@ -91,6 +105,17 @@ body {
     overflow-wrap: break-word;   /* CSS3 standard: Chrome & Opera 2013+ */
 }
 
+/* --------PANEL USER------------- */
+.panel-user li{
+	//background: #1a99aa;
+}
+.panel-user li a{
+	display: inline-block;
+}
+.panel-user i{
+	font-size: 25px;
+}
+
 /* --------MINI MENU------------- */
 .mini-menu{
 	position: absolute;
@@ -101,6 +126,25 @@ body {
 /* --------LAYOUT MAIN CONTENT------------- */
 .layout-main-content{
 	min-height: 750px;
+}
+
+/* --------TABLE PRICE STOCK MINI------------- */
+.name_company{
+	color: #428bca;
+}
+
+/*---------MÀU SẮC GIÁ TIỀN ------------*/
+.brd, .b_d, .grd, .g_d {
+color: #ff0000;
+}
+.bru, .b_u, .gru, .g_u {
+color: #00ff00;
+}
+.brc, .b_c, .grc, .g_c {
+color: #ff00ff;
+}
+.brf, .b_f, .grf, .g_f {
+color: #66ccff;
 }
 
 
@@ -182,9 +226,9 @@ body {
 	display:inline-block;
 }
 .list-article li:hover{
-	-webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.71);
+	/* -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.71);
 	-moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.71);
-	box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.71);
+	box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.71); */
 }
 .thumb{
 		
@@ -195,6 +239,10 @@ body {
 	background: #DFDFDF;
 	float: left;
 	margin-bottom: 5px;
+	
+	-webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.71);
+	-moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.71);
+	box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.71);
 }
 .title{
 	font-weight: bolder;

@@ -13,6 +13,7 @@ use Zend\Db\TableGateway\TableGateway;
 use News\Model\ArticleTable;
 use Zend\Crypt\PublicKey\Rsa\PublicKey;
 use News\Model\Chat;
+use Zend\Db\Sql\Insert;
 
 class ChatController extends AbstractActionController {
 	protected $auth;
@@ -53,7 +54,7 @@ class ChatController extends AbstractActionController {
 			 */
 		} else
 			echo 'fail';
-		$this->redirect ()->toRoute ( 'news/chat' );
+		//$this->redirect ()->toRoute ( 'news/chat' );
 	}
 	public function getchatAction() {
 		$sql = new Sql ( $this->getServiceLocator ()->get ( 'Zend\Db\Adapter\Adapter' ) );
@@ -71,7 +72,7 @@ class ChatController extends AbstractActionController {
 		return $json;
 	}
 	function managerAction() {
-		$res_chat = $this->getChatTable ()->fecthAll ();
+		$res_chat = $this->getChatTable ()->fetchAll ();
 		return array (
 				'chat' => $res_chat 
 		);
@@ -81,16 +82,33 @@ class ChatController extends AbstractActionController {
 		$this->getChatTable ()->delete ( $id_message );
 		$this->redirect ()->toRoute ( 'news/chat/manager' );
 	}
-	function clearallchatAction() {
+	function clearallAction() {
 		$this->getChatTable ()->clearall ();
+		$this->redirect()->toRoute('news/chat/manager');
 	}
-	function banchatAction() {
-		$id_user = $this->params ( 'id_user' );
-		$this->getChatTable ()->banchat ( $id_user );
+	function banchatAction() {		
+		$request=$this->getRequest();
+		if ($request->isPost()) {
+			$username=$request->getPost('username');			
+			$sql=new Sql($this->getServiceLocator()->get('Zend\Db\Adapter\Adapter'));
+			$insert=$sql->insert('userz_ban')->values(array('username'=>$username));
+			$statement=$sql->prepareStatementForSqlObject($insert);
+			$statement->execute();					
+			//echo $sql->getSqlStringForSqlObject($insert);			
+		}
+				
+		//return array('user'=>$user);		
 	}
 	function unbanchatAction() {
-		$id_user = $this->params ( 'id_user' );
-		$this->getChatTable ()->unbanchat ( $id_user );
+		$request=$this->getRequest();
+		if ($request->isPost()) {
+			$username=$request->getPost('username');			
+			$sql=new Sql($this->getServiceLocator()->get('Zend\Db\Adapter\Adapter'));
+			$delete=$sql->delete()->from('userz_ban')->where(array('username'=>$username));
+			$statement=$sql->prepareStatementForSqlObject($delete);
+			$statement->execute();					
+			$this->redirect()->toRoute('news/chat/banchat');			
+		}
 	}
 	function upiconAction() {
 	}

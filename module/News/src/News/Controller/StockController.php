@@ -51,7 +51,7 @@ class StockController extends AbstractActionController {
 		$stock->name='3';		
 		$stock->tran='';
 		$stock->san='';
-		$stock->tham_chieu='';			
+		$stock->thamchieu='';			
 		$stock->du_mua_gia_3='';
 		$stock->du_mua_KL_3='';				
 		$stock->du_mua_gia_2='';
@@ -74,26 +74,40 @@ class StockController extends AbstractActionController {
 		$stock->nn_mua='';		
 		
 		$temp_arr=array();
+		$temp_class_arr=array();
 		$count_index=0;
 		foreach ($results as $val){
 			if ($count_index!=20 and $count_index!=25){
-				$temp_arr[]=$val->textContent;			
+				$temp_arr[]=$val->textContent;	
+				$temp_class_arr[]=$val->getAttributeNode('class')->nodeValue;
 			}
 			$count_index++;			
 		}				
 		$count=0;
 		foreach ($stock as $key=>$s){			
-			$stock->{$key}=$temp_arr[$count];
+			$stock->{$key}=array('value'=>$temp_arr[$count],'class'=>$temp_class_arr[$count]);
 			$count++;
 		}
 		$stock->name_company=$name_company;
-		/* echo '<br>';		
-		echo print_r($stock);
-		echo '<br>';
-		echo $stock_name;
-		echo '<br>';	
-		echo print_r($temp_arr); */
+		//echo print_r($temp_class_arr);		
 		return new JsonModel(array('stock_info'=>$stock));
+	}
+	function getallnameAction(){
+		$ch=curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'http://priceboard.fpts.com.vn/ho4/VN/get.asp?a=1');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$hose_temp=curl_exec($ch);
+		
+		$hose=new Query();
+		$hose->setDocumentHtml('<?xml encoding="UTF-8">'.$hose_temp);					
+		$name_company_query=$hose->execute("tr");		
+		$company_arr=array();
+		foreach ($name_company_query as $val){
+			$company_arr[]=$val->getAttributeNode('id')->nodeValue." - ".$val->getAttributeNode('title')->nodeValue; 			
+			//echo $val->getAttributeNode('id')->nodeValue." - ".$val->getAttributeNode('title')->nodeValue."<br>";
+		}
+		//echo print_r($company_arr);
+		return array('company_arr'=>$company_arr);
 	}
 	function viewstockAction(){		
 		//http://ajax.vietstock.vn/GetChart.ashx
@@ -111,17 +125,13 @@ class StockController extends AbstractActionController {
 		$results = $hose->execute("#tr$stock_name td");	
 			
 	
-		$name_company_query=$hose->execute("#tr$stock_name");
+		/* $name_company_query=$hose->execute("#tr$stock_name");
 		$name_company='';
 		foreach ($name_company_query as $val){
 			$name_company=$val->getAttributeNode('title')->nodeValue;
 			//echo $val->textContent.'<br>';
 		}
-		echo $name_company;
-		
-		
-		
-		
+		echo $name_company; */	
 		
 		
 		//$res=$hose->queryXpath('/html/body/table[4]/tr[3]/td');

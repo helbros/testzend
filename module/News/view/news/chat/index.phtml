@@ -1,13 +1,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
-	//var base_url=$('base').attr('href');
-	var checkAuth;
-	//console.log(document.domain);
+	loadchat();
 	checkAuth();
-//setInterval(function(){loadchat()},2000);
-$(window).load(function(){
-	$('#loader').delay(200).fadeOut();		
-});	
+//setInterval(function(){loadchat()},2000);	
 $('.message').keypress(function(e){
      var p = e.which;
      if(p==13){	    	 
@@ -27,8 +22,7 @@ function loadchat(){
 			,function(data){
 				var tr;
 				var th="<thead><tr><th class='col-md-2'>Date Time</th><th class='col-md-2'>User</th><th class='col-md-7'>Message</th></tr></thead>";
-				console.log(data);					
-				console.log(data.chat_data[0].date_time);
+				//console.log(data);									
 				for(var i=0;i<data.chat_data.length;i++){							
 					tr+="<tr><td class='td-timechat'>" +data.chat_data[i].date_time+"</td><td class='td-userchat'>"+data.chat_data[i].username+"</td><td>"+data.chat_data[i].message+"</td></tr>";						
 				}
@@ -39,17 +33,23 @@ function loadchat(){
 			}
 		);
 }
-function checkAuth(){
+function checkAuth(){		
 	$.get(base_url+'/news/auth/checkAuth'
-			,function(data){
-				checkAuth=data.checkAuth;
-				console.log(checkAuth);
-				if(checkAuth==false) {
-					$("input[name=message]").attr('disabled','').val('Đăng nhập để chat');
-					$("button[name=submit-chat]").hide();
-					alert('flase');
-				}				
-				});
+			,function(data){					
+					//console.log(data);
+					if(data.checkAuth==false) {
+						$("input[name=message]").attr('disabled','').val('Đăng nhập để chat');
+						$("button[name=submit-chat]").css('visibility','hidden');					
+					}
+					if(data.checkAuth==true && data.checkBan==true) {
+						$("input[name=message]").attr('disabled','').val('Bạn đã bị ban');
+						$("button[name=submit-chat]").css('visibility','hidden');						
+					}
+					if(data.checkAuth==true && data.checkBan==false) {
+						setInterval(function(){loadchat()},2000);
+					}
+				}
+	);	
 }
 });
 </script>
@@ -98,7 +98,7 @@ function checkAuth(){
 		</div>
 	</div> -->
 	<ul class="list-unstyled chat-box">
-	<li class="chat-header"><span>Welcome</span></li>
+	<li class="chat-header"><span style="color: #428bca;font-weight: bold;">Welcome</span></li>
 	<li class="chat-content">	
 		<table class="table table-message">			
 			<tbody>										

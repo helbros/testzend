@@ -29,4 +29,12 @@ class CustomHelper extends AbstractHelper {
 		$base = sprintf ( '%s://%s', $scheme, $host );
 		return $base_url = $uri->getScheme () . '://' . $uri->getHost () . $uri->getPath ();
 	}
+	function add_prefixCate($path){
+		$prefix_level='';
+		$level=substr_count($path, '-');
+		for ($i=1;$i<=$level;$i++){
+			$prefix_level.='---------/';
+		}
+		return $prefix_level;
+	}
 }

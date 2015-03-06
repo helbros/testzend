@@ -1,13 +1,5 @@
 <script>
-$(document).ready(function(){			
-		$.post('http://www.cophieu68.vn/index_ajax.php'
-   			 ,{   				
-   				marketType:1,
-   				orderType:'volume'
-   			},function(data){
-   				 console.log(data);
-   			 });
-	
+$(document).ready(function(){					
 	 $(document).on('click', ".jcarousel-prev", function () {
 		 	$('.jcarousel').jcarousel();
 	        $('.jcarousel').jcarousel('scroll', '-=4');	     
@@ -67,16 +59,16 @@ $(document).ready(function(){
 	    <th>Sàn</th>
 	    <th>TC</th>
 	    <th>Mã CK</th>
-	    <th class="id_stock">ACB</th>
-	    <th class="name_company" colspan="6">Cty ngân hàng ACB</th>
+	    <th id="id_stock">ACB</th>
+	    <th id="name_company" colspan="6">Cty ngân hàng ACB</th>
 	    <th width="37" rowspan="2">Giá khớp</th>
 	    <th width="37" rowspan="2">KL khớp</th>
 	    <th width="37"><button type="button" class="close close-view-stock-panel" aria-label="Close"><span aria-hidden="true">&times;</span></button></th>
 	  </tr>
 	  <tr>
-	    <td class="tran">14.3</td>
-	    <td class="san">12.5</td>
-	    <td class="thamchieu">13.4</td>
+	    <td id="tran">14.3</td>
+	    <td id="san">12.5</td>
+	    <td id="thamchieu">13.4</td>
 	    <td>&nbsp;</td>
 	    <td>&nbsp;</td>
 	    <th>Giá 3</th>
@@ -93,28 +85,28 @@ $(document).ready(function(){
 	    <th>Thấp nhất</th>
 	    <th>NN mua</th>
 	    <th>Dư mua</th>
-	    <td class="du_mua_gia_3">12.7</td>
-	    <td class="du_mua_KL_3">310</td>
-	    <td class="du_mua_gia_2">12.8</td>
-	    <td class="du_mua_KL_2">100</td>
-	    <td class="du_mua_gia_1">12.9</td>
-	    <td class="du_mua_KL_1">98</td>
-	    <td class="gia_khop" rowspan="2">13</td>
-	    <td class="khoi_luong_khop"  rowspan="2">342</td>
-	    <td class="tang_giam"  rowspan="2">-0.4</td>
+	    <td id="du_mua_gia_3">12.7</td>
+	    <td id="du_mua_KL_3">310</td>
+	    <td id="du_mua_gia_2">12.8</td>
+	    <td id="du_mua_KL_2">100</td>
+	    <td id="du_mua_gia_1">12.9</td>
+	    <td id="du_mua_KL_1">98</td>
+	    <td id="gia_khop" rowspan="2">13</td>
+	    <td id="khoi_luong_khop"  rowspan="2">342</td>
+	    <td id="tang_giam"  rowspan="2">-0.4</td>
 	  </tr>
 	  <tr>
-	    <td class="mo_cua">1027</td>
-	    <td class="cao_nhat">13</td>
-	    <td class="thap_nhat">13.5</td>
-	    <td class="nn_mua">12.9</td>
+	    <td id="mo_cua">1027</td>
+	    <td id="cao_nhat">13</td>
+	    <td id="thap_nhat">13.5</td>
+	    <td id="nn_mua">12.9</td>
 	    <th>Dư bán</th>
-	    <td class="du_ban_gia_3">13.6</td>
-	    <td class="du_ban_KL_3">300</td>
-	    <td class="du_ban_gia_2">13.5</td>
-	    <td class="du_ban_KL_2">94</td>
-	    <td class="du_ban_gia_1">13.4</td>
-	    <td class="du_ban_KL_1">99</td>
+	    <td id="du_ban_gia_3">13.6</td>
+	    <td id="du_ban_KL_3">300</td>
+	    <td id="du_ban_gia_2">13.5</td>
+	    <td id="du_ban_KL_2">94</td>
+	    <td id="du_ban_gia_1">13.4</td>
+	    <td id="du_ban_KL_1">99</td>
 	  </tr>
 	</table>
 	</div>
@@ -146,38 +138,51 @@ $(document).ready(function(){
 	<div id="fb-root"></div>	
 		<script>
 			$(document).ready(function(){
+				//**lay name congty add vao select
+				//company_arr;
+				$('.view-stock-mini select').val('asdasd');
+				$.each(company_arr, function(key, value) {   
+				     $('.view-stock-mini select')
+				         .append($("<option></option>")
+				         //.attr("value",key)
+				         .text(value)); 
+				});
+
+				
 				$('.close-view-stock-panel').click(function(){
 						$('.view-stock-panel').addClass('hidden');
 					});
 				$('.view-stock-mini button').click(function(){
-					console.log($('.view-stock-mini select').val());
-						$.post(base_url+'/news/stock/getstockinfo/'+$('.view-stock-mini select').val(),								
+					var s=$('.view-stock-mini select').val();
+					var res=s.split(' ',1);
+					console.log(res);
+						$.post(base_url+'/news/stock/getstockinfo/'+$('.view-stock-mini select').val().split(" ",1),								
 								function(data){
 									console.log(data);									
-									$('.id_stock').text(data.stock_info.name);
-									$('.name_company').text(data.stock_info.name_company);
-									$('.tran').text(data.stock_info.tran);
-									$('.san').text(data.stock_info.san);
-									$('.thamchieu').text(data.stock_info.thamchieu);
-									$('.du_mua_gia_3').text(data.stock_info.du_mua_gia_3);
-									$('.du_mua_KL_3').text(data.stock_info.du_mua_KL_3);
-									$('.du_mua_gia_2').text(data.stock_info.du_mua_gia_2);
-									$('.du_mua_KL_2').text(data.stock_info.du_mua_KL_2);
-									$('.du_mua_gia_1').text(data.stock_info.du_mua_gia_1);
-									$('.du_mua_KL_1').text(data.stock_info.du_mua_KL_1);									
-									$('.du_ban_gia_3').text(data.stock_info.du_ban_gia_3);
-									$('.du_ban_KL_3').text(data.stock_info.du_ban_KL_3);
-									$('.du_ban_gia_2').text(data.stock_info.du_ban_gia_2);
-									$('.du_ban_KL_2').text(data.stock_info.du_ban_KL_2);
-									$('.du_ban_gia_1').text(data.stock_info.du_ban_gia_1);
-									$('.du_ban_KL_1').text(data.stock_info.du_ban_KL_1);
-									$('.gia_khop').text(data.stock_info.gia_khop);
-									$('.khoi_luong_khop').text(data.stock_info.khoi_luong_khop);
-									$('.tang_giam').text(data.stock_info.tang_giam);
-									$('.mo_cua').text(data.stock_info.mo_cua);
-									$('.cao_nhat').text(data.stock_info.cao_nhat);
-									$('.thap_nhat').text(data.stock_info.thap_nhat);
-									$('.nn_mua').text(data.stock_info.nn_mua);
+									$('#id_stock').text(data.stock_info.name.value).removeClass().addClass(data.stock_info.tang_giam.class);
+									$('#name_company').text(data.stock_info.name_company);
+									$('#tran').text(data.stock_info.tran.value).removeClass().addClass(data.stock_info.tran.class);
+									$('#san').text(data.stock_info.san.value).removeClass().addClass(data.stock_info.san.class);
+									$('#thamchieu').text(data.stock_info.thamchieu.value).removeClass().addClass(data.stock_info.thamchieu.class);
+									$('#du_mua_gia_3').text(data.stock_info.du_mua_gia_3.value).removeClass().addClass(data.stock_info.du_mua_gia_3.class);
+									$('#du_mua_KL_3').text(data.stock_info.du_mua_KL_3.value).removeClass().addClass(data.stock_info.du_mua_KL_3.class);
+									$('#du_mua_gia_2').text(data.stock_info.du_mua_gia_2.value).removeClass().addClass(data.stock_info.du_mua_gia_2.class);
+									$('#du_mua_KL_2').text(data.stock_info.du_mua_KL_2.value).removeClass().addClass(data.stock_info.du_mua_KL_2.class);
+									$('#du_mua_gia_1').text(data.stock_info.du_mua_gia_1.value).removeClass().addClass(data.stock_info.du_mua_gia_1.class);
+									$('#du_mua_KL_1').text(data.stock_info.du_mua_KL_1.value).removeClass().addClass(data.stock_info.du_mua_KL_1.class);									
+									$('#du_ban_gia_3').text(data.stock_info.du_ban_gia_3.value).removeClass().addClass(data.stock_info.du_ban_gia_3.class);
+									$('#du_ban_KL_3').text(data.stock_info.du_ban_KL_3.value).removeClass().addClass(data.stock_info.du_ban_KL_3.class);
+									$('#du_ban_gia_2').text(data.stock_info.du_ban_gia_2.value).removeClass().addClass(data.stock_info.du_ban_gia_2.class);
+									$('#du_ban_KL_2').text(data.stock_info.du_ban_KL_2.value).removeClass().addClass(data.stock_info.du_ban_KL_2.class);
+									$('#du_ban_gia_1').text(data.stock_info.du_ban_gia_1.value).removeClass().addClass(data.stock_info.du_ban_gia_1.class);
+									$('#du_ban_KL_1').text(data.stock_info.du_ban_KL_1.value).removeClass().addClass(data.stock_info.du_ban_KL_1.class);
+									$('#gia_khop').text(data.stock_info.gia_khop.value).removeClass().addClass(data.stock_info.gia_khop.class);
+									$('#khoi_luong_khop').text(data.stock_info.khoi_luong_khop.value).removeClass().addClass(data.stock_info.khoi_luong_khop.class);
+									$('#tang_giam').text(data.stock_info.tang_giam.value).removeClass().addClass(data.stock_info.tang_giam.class);
+									$('#mo_cua').text(data.stock_info.mo_cua.value).removeClass().addClass(data.stock_info.mo_cua.class);
+									$('#cao_nhat').text(data.stock_info.cao_nhat.value).removeClass().addClass(data.stock_info.cao_nhat.class);
+									$('#thap_nhat').text(data.stock_info.thap_nhat.value).removeClass().addClass(data.stock_info.thap_nhat.class);
+									$('#nn_mua').text(data.stock_info.nn_mua.value).removeClass().addClass(data.stock_info.nn_mua.class);
 
 									$('.view-stock-panel').removeClass('hidden');
 									$('.view-stock-panel').addClass('show');
@@ -188,10 +193,7 @@ $(document).ready(function(){
 		</script>
 		<div class="view-stock-mini well-remix">
 			<div class="form-inline">			 
-			   		<select class="form-control" style="width:195px">
-							<option>HAG</option>
-							<option>BCI</option>
-							<option>FPT</option>
+			   		<select class="form-control" style="width:195px">			   				
 					</select>
 				    <button class="btn btn-default">Xem</button>			   			 
 			</div>			

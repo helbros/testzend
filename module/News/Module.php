@@ -147,20 +147,7 @@ class Module implements ViewHelperProviderInterface{
 							$table = new ChatTable ( $tableGateway );
 							return $table;
 						},
-						'checkAuthBand' => function ($sm) {
-							$auth = new AuthenticationService ();
-							$validator_band = new RecordExists ( array (
-									'table' => 'userz_ban',
-									'field' => 'username',
-									'adapter' => $sm->get ( 'Zend\Db\Adapter\Adapter' ) 
-							) );
-							$result_band = ($validator_band->isValid ( $auth->getIdentity ()->username )) ? true : false;
-							return $result_band;
-						},
-						'getAuth'=>function ($sm){
-								$auth = new AuthenticationService ();
-								return $auth->getIdentity();
-						} 
+										
 						
 				)
 				 

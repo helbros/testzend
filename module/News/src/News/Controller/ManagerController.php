@@ -39,6 +39,7 @@ class ManagerController extends AbstractActionController {
 	function homeAction() {				
 		$this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Đầu tư tương lai');					
 		$select=new Select('article');
+		$select->order('created DESC');
 		$adapterPaginator=new DbSelect($select, $this->getDbAdapter());
 		$paginator=new Paginator($adapterPaginator);
 		$paginator->setCurrentPageNumber($this->params()->fromRoute('page'));

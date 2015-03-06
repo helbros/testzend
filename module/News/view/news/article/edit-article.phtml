@@ -16,7 +16,7 @@ $(document).ready(function(){
 	   
 	   external_filemanager_path:"http://localhost/workspace/testzend/filemanager/",
 	   filemanager_title:"Responsive Filemanager" ,
-	   //external_plugins: { "filemanager" : "http://localhost/workspace/testzend/filemanager/plugin.min.js"},
+	   //xternal_plugins: { "filemanager" : "http://localhost/workspace/testzend/filemanager/plugin.min.js"},
 		
 		
 		
@@ -38,6 +38,9 @@ $(document).ready(function(){
 <?php 
 $form=$this->form;
 $form->prepare();
+$form->get('title')->setValue($article->title);
+$form->get('alias')->setValue($article->alias);
+$form->get('full_text')->setValue($article->full_text);
 ?>
 <div class="row">		
 	<div class="col-md-2">

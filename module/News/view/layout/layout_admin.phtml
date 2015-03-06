@@ -1,34 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-<base href="<?php echo $this->basePath(); ?>" />
+<base href="<?php echo $this->basePath () ?>">
 <meta charset="utf-8">
+<link rel="icon" type="image/ico" href="<?php echo $this->basePath () ?>/img/fav-hs-tran.ico">
 <?php echo $this->headTitle(); ?>
 
-<?php echo $this->headLink()->prependStylesheet($this->basePath()."/css/bootstrap.css")
-							->appendStylesheet($this->basePath() . '/css/style.css');?>
+<?php
+
+echo $this->headLink ()
+->prependStylesheet ( $this->basePath () . "/css/bootstrap.css" )
+->appendStylesheet ( $this->basePath () . '/font-awesome/css/font-awesome.min.css' )
+->appendStylesheet ( $this->basePath () . '/css/style.css' );
+?>
 <!-- Scripts -->
-        <?php echo $this->headScript()
-            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-            ->prependFile($this->basePath() . '/js/jquery.min.js')
-            ->appendFile($this->basePath() . '/js/jquery.jcarousel.min.js')
-            ->appendFile($this->basePath() . '/js/temp.js')
-        ; ?>
+        <?php
+								
+echo $this->headScript ()->prependFile ( $this->basePath () . '/js/bootstrap.min.js' )
+->prependFile ( $this->basePath () . '/js/jquery.min.js' )
+->appendFile ( $this->basePath () . '/js/jquery.jcarousel.min.js' )
+->appendFile ( $this->basePath () . '/js/temp.js' )
+->appendFile ( $this->basePath () . '/js/list-company.js' )
+->appendFile ( $this->basePath () . '/plugin/tinymce/tinymce.min.js' );
+
+								
+								?>
 
 </head>
-
 <body>
-<div id="wrapper" class="">
-<div class="row-fluid">
-  <header class="header">
-	<nav class="navbar navbar-default" role="navigation">
-	<ul class="nav navbar-nav">
+
+
+	<div class="container container-custom">
+		<nav class="navbar navbar-default navbar-fixed-top hidden-xs">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand navbar-brand-remix" href="#"> 
+					<h3 style="color: #428bca;font-weight: bold;">HOMESTOCK Reborn</h3>				
+					</a>
+				</div>
+				<ul class="list-unstyled nav navbar-nav pull-right main-menu panel-user">
+				<?php if ($user=$this->identity()):?>
+					<li class='login'><a href=''><?= $user->username ?></a></li>
+					<li class="logout"><a href="<?=$this->url('news/auth/logout')?>"><i class="fa fa-sign-out"></i></a></li>
+				<?php else: ?>
+					<li class='login'><a href=''>Đăng nhập</a></li>
+				<?php endif;?>										
+				</ul>
+				<?php
+				//echo $this->navigation ( 'navigation' )->menu ()->setUlClass ( 'nav navbar-nav test pull-right main-menu' );
+				?>
+				<ul class="nav navbar-nav pull-right">
 		<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Home <span class="caret"></span></a>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="<?=base_url()."index.php/admin/home"?>">Home</a></li>
-				<li><a href="<?=base_url()."index.php/admin/cms/article"?>">Thông tin hệ thống</a></li>
-				<li><a href="<?=base_url()."index.php/admin/cms/categories"?>">Cấu hình</a></li>				
+				<li><a href="<?=$this->url('news/manager/home') ?>">Home</a></li>
+				<li><a href="">Thông tin hệ thống</a></li>
+				<li><a href="">Cấu hình</a></li>				
 				<li class="divider"></li>
 				<li><a href="#">Separated link</a></li>
 				<li class="divider"></li>
@@ -36,34 +63,168 @@
 			</ul>
 		</li>
 		<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tin tức<span class="caret"></span></a>
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Bài viết<span class="caret"></span></a>
 			<ul class="dropdown-menu" role="menu">				
-				<li><a href="<?=base_url()."index.php/admin/cms/article"?>">Tin tức</a></li>
-				<li><a href="<?=base_url()."index.php/admin/cms/categories"?>">Danh mục bài viết</a></li>								
+				<li><a href="<?=$this->url('news/article') ?>">Quản lý bài viết</a></li>
+				<li><a href="">Danh mục bài viết</a></li>								
 			</ul>
 		</li>
 		<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sách <span class="caret"></span></a>
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Danh mục <span class="caret"></span></a>
 			<ul class="dropdown-menu" role="menu">				
-				<li><a href="<?=base_url()."index.php/admin/home/book"?>">Sách</a></li>							
-				<li><a href="order">Danh mục sách</a></li>								
+				<li><a href="<?=$this->url('news/article/add-cate-article') ?>">Quản lý danh mục</a></li>																		
 			</ul>
 		</li>
-		<li><a href="index.php/admin/cart">Giỏ hàng</a></li>	
+		<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Chat <span class="caret"></span></a>
+			<ul class="dropdown-menu" role="menu">				
+				<li><a href="<?=$this->url('news/chat/manager') ?>">Quản lý chat</a></li>
+				<li><a href="">Ban nick</a></li>																		
+			</ul>
+		</li>
 				
+	</ul>	
+						
+			</div>
+		</nav>
+				
+<!-- MINI MENU -->
+	<ul class="nav nav-pills nav-stacked mini-menu visible-xs">		
+ 		<li role="presentation"><a href="#">HOME</a></li>
+ 		<li role="presentation"><a href="#">PHÂN TÍCH</a></li>
+ 		<li role="presentation"><a href="#">NHẬN ĐỊNH</a></li>
+ 		<li role="presentation"><a href="#">KINH NGHIỆM</a></li>
+ 		<li role="presentation"><a href="#">ABOUT US</a></li>
 	</ul>
-	<ul class="pull-right">
-			<span class="label label-primary"><?php //echo $user;?></span>
-			<a class="btn btn-default" href="index.php/home" target="_blank">Trang chủ</a>			
-			<a class="btn btn-default" href="index.php/auth/logout">Đăng xuất</a>
-	</ul>
-</nav>
-  </header>
-  <div class="content">
-  	<?= $content?>
-  </div>
-  <footer class="footer"></footer>
-</div>
-</div>
+
+
+
+
+		<br>
+		<div class="row"></div>
+		<div class="row"><?php //echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumb.phtml');?></div>
+		<div class="row layout-main-content">
+			<div class="col-md-12"><?php echo $this->content;?></div>
+		</div>
+	</div>
+
+	<!-- TEST LOADER SPIN -->
+	<div id="loader" style="display: none">
+		<div class="spinner">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container2">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container3">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- Modal -->
+	<script>
+$(document).on('click','#login-pop-up-frontend',function(){
+	$.post(base_url+'/news/auth/loginajax',
+			{
+				username:$('input[name="username"]').val(),
+				password:$('input[name="password"]').val()
+			},
+			function(data){	
+				console.log(data.logined_frontend_status);			
+				if(data.logined_frontend_status==false){
+					$('.anounce-login').text('Tên đăng nhập hoặc mật khẩu không đúng').css('color','red');
+				}else{
+					$('.anounce-login').text('Đăng nhập thành công').css('color','green');;
+					window.location=base_url+"/news/manager/home";					
+				}												
+			});
+			
+});
+	$('.login').click(function(){
+		$('.modal').modal('show');			
+	});		
+	$('.login a').click(function(e){
+		e.preventDefault();
+	});
+	
+	
+</script>
+	<footer class="">
+		<div class="container container-custom">
+			<div class="row top-footer">
+				<div class="col-md-3">
+					<img class="logo-btm img-responsive" alt="" src="public/img/slogan4home.png">
+					<p class="sign">Tyche Developer's</p>
+				</div>
+				<div class="col-md-3">
+					<ul class="nav connect">
+						<li class="page-header">Chuyên mục</li>
+						<li><a
+							href="http://homestock.vn/forum/forumdisplay.php/19-Kinh-Nghiem.html"
+							target="_blank">Kinh Nghiệm</a></li>
+						<li><a
+							href="http://homestock.vn/forum/forumdisplay.php/18-Kien-Thuc.html"
+							target="_blank">Kiến Thức</a></li>
+						<li><a
+							href="http://homestock.vn/forum/forumdisplay.php/8-Phan-tich-Danh-gia-doanh-nghiep.html"
+							target="_blank">Phân Tích - Đánh giá doanh nghiệp</a></li>
+						<li><a
+							href="http://homestock.vn/forum/forumdisplay.php/9-Nhan-dinh-kinh-te-Tai-chinh-Thi-truong.html"
+							target="_blank">Nhận Định Kinh Tế </a></li>
+						<li><a
+							href="http://homestock.vn/forum/forumdisplay.php/24-Tin-tuc-doanh-nghiep-niem-yet.html"
+							target="_blank">Tin tức doanh nghiệp niêm yết</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">
+					<ul class="nav connect">
+						<li class="page-header">Sản phẩm</li>
+						<li class=""><a href="http://homestock.vn/home" target="_blank">Tin
+								tức</a></li>
+						<li class=""><a href="http://homestock.vn/forum" target="_blank">Diễn
+								đàn</a></li>
+						<li class=""><a href="#">Kho thuật ngữ (coming soon)</a></li>
+						<li class=""><a href="#">Phân tích kỹ thuật (coming soon)</a></li>
+						<li class=""><a href="http://homestock.vn/quanlydautu"
+							target="_blank">Quản lý đầu tư</a></li>
+						<li class=""><a href="http://homestock.vn/bet" target="_blank">Game
+								cược bóng đá ảo (beta)</a></li>
+						<li class=""><a href="http://homestock.vn/book" target="_blank">Cửa
+								hàng sách </a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">										
+                    <ul class="list-unstyled contact nav">
+                    <li class="page-header">Kết nối</li>                                
+                    
+                    <li><p><strong><i class="fa fa-facebook-official"></i> Facebook :</strong> <a href="#">fb.com/homestock.vn</a></p></li>
+                    <li><p><strong><i class="fa fa-google-plus"></i> G+ :</strong> <a href="#">google.com/homestock.vn</a></p></li>
+                                <li><p><strong><i class="fa fa-twitter"></i> Twitter :</strong> <a href="#">twitter.com/homestockvn</a></p></li>                                
+                                <li><p><strong><i class="fa fa-yahoo"></i> Yahoo :</strong> <a href="#">homestockvn@yahoo.com</a></p></li>
+                                <li><p><strong><i class="fa fa-envelope"></i> Mail Us :</strong> <a href="#">homestockvn@gmail.com</a></p></li>
+                                <li> <p><strong><i class="fa fa-skype"></i> Skype :</strong> homestock.vn</p></li>
+
+                            </ul>
+				</div>
+			</div>			
+		</div>
+		<div class="row btm-bar">
+				<p class="copyright text-center">HomeStock 2014</p>
+			</div>
+	</footer>
 </body>
 </html>
+
+
